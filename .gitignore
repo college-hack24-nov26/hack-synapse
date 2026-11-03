@@ -1,0 +1,107 @@
+# React / Vite: install dependencies and regenerate builds after cloning.
+node_modules/
+/dist/
+/build/
+.vite/
+*.tsbuildinfo
+.eslintcache
+
+# Python environments and caches.
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.Python
+.python-version
+
+# Local credentials. Keep placeholder examples available for setup.
+.env
+.env.*
+*.env
+!.env.example
+!.env.sample
+!.env.template
+!*.env.example
+!*.env.sample
+secrets.h
+secrets.json
+secrets.yaml
+secrets.yml
+secrets.local.*
+*.pem
+*.key
+*.p12
+*.pfx
+.ssh/
+
+# Patient history, live calibration and SQLite journal files.
+# database/schema.sql and application database code remain tracked.
+/data/*
+!/data/.gitkeep
+*.db
+*.db-*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+
+# Generated reports, runtime logs and temporary output.
+/reports/
+/output/
+/tmp/
+/scratch/
+*.log
+*.pid
+*.pid.lock
+*.tmp
+*.temp
+*.bak
+*.orig
+*.rej
+
+# Browser/Python test artifacts and coverage, not test source files.
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+coverage/
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+
+# ESP32 build output. Keep sketches and secrets.example.h tracked.
+.pio/
+.arduinoIDE/
+firmware/**/build/
+firmware/**/*.elf
+firmware/**/*.hex
+firmware/**/*.bin
+firmware/**/*.map
+
+# Local editor and operating-system files.
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.code-workspace
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Deliberately retain package-lock.json, requirements.txt, run.py, tests,
+# ML model artifacts, training fixtures, fonts, 3D models and exercise videos.
