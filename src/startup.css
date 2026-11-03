@@ -1,0 +1,5 @@
+html, body, #root { margin: 0; min-height: 100%; }
+.react-startup { max-width: 600px; margin: 15vh auto; padding: 32px; font-family: Poppins, Arial, sans-serif; color: #45452c; }
+.react-startup h1 { font-size: 30px; font-weight: 600; }
+.react-startup button { border: 0; background: #6a6223; color: white; border-radius: 8px; padding: 12px 24px; cursor: pointer; font: inherit; }
+body:not([data-react-ready]) #root > .app-container { pointer-events: none; }
