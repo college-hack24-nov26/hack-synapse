@@ -1,0 +1,329 @@
+#tab-exercises.gp-workspace { gap:18px; }
+.gp-page-header,.gp-session-heading { display:flex; justify-content:space-between; align-items:center; gap:20px; }
+.gp-source,.gp-session-state { color:#597563; font:12px Arial,sans-serif; padding:9px 12px; background:#eaf2ed; border:1px solid #d6e3db; border-radius:6px; white-space:nowrap; }
+.gp-exercises { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:10px; }
+.gp-exercises button { text-align:left; padding:15px 13px; min-height:85px; border:1px solid #dae4dd; background:#fff; border-radius:9px; color:#4b6755; cursor:pointer; font:500 12px/1.6 'Poppins',Arial,sans-serif; }
+.gp-exercises button span { display:block; color:#8b9d90; font:10px Arial,sans-serif; margin-bottom:7px; }
+.gp-exercises button[aria-pressed=true] { border-color:#759e84; box-shadow:inset 0 0 0 1px #759e84; background:#edf5ef; color:#315e43; }
+.gp-exercises button:disabled { cursor:default; }
+.gp-session-heading { padding-top:6px; }
+.gp-session-heading h3 { font:500 21px 'Poppins',Arial,sans-serif; color:#35533f; }
+.gp-session-heading p { color:#748276; font:13px/1.6 Arial,sans-serif; margin-top:5px; }
+.gp-comparison { display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+.gp-panel { border:1px solid #dce5df; background:#fff; border-radius:11px; overflow:hidden; min-width:0; }
+.gp-panel header { display:flex; justify-content:space-between; gap:10px; align-items:center; padding:16px 18px; border-bottom:1px solid #e7ede8; }
+.gp-kicker { font:500 9px 'Poppins',Arial,sans-serif; letter-spacing:1.3px; color:#7c9182; }
+.gp-panel h3 { font:500 14px 'Poppins',Arial,sans-serif; margin-top:5px; color:#365941; }
+.gp-loop-label,.gp-live-indicator { font:11px Arial,sans-serif; color:#788c7c; }
+.gp-video-wrap,.gp-hand-wrap { height:clamp(260px,34vh,420px); position:relative; background:#f5f9f7; }
+#guidedDemoVideo { width:100%; height:100%; object-fit:contain; display:block; }
+.gp-hand-wrap .canvas-wrapper-clean { height:100%; min-height:0; }
+#gpVideoError { position:absolute; inset:0; display:grid; place-items:center; padding:30px; color:#966252; font:14px/1.8 Arial,sans-serif; text-align:center; background:#fff7f1; }
+#gpVideoError[hidden] { display:none; }
+.gp-panel-caption { font:12px/1.7 Arial,sans-serif; color:#65806b; padding:12px 18px; border-top:1px solid #e7eee8; min-height:46px; }
+.gp-session-console { display:flex; justify-content:space-between; gap:20px; align-items:center; padding:18px 22px; background:#fff; border:1px solid #dbe5df; border-radius:10px; }
+.gp-session-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:22px; flex:1; }
+.gp-session-metrics span { display:block; font:11px/1.6 Arial,sans-serif; color:#7b8b7d; }
+.gp-session-metrics strong { display:block; font:500 24px 'Poppins',Arial,sans-serif; color:#365f45; margin-top:4px; font-variant-numeric:tabular-nums; }
+.gp-session-actions { display:flex; gap:10px; }
+.gp-session-actions .btn { padding:11px 16px; min-height:45px; }
+.gp-feedback { margin:0; color:#456a50; font:14px/1.7 Arial,sans-serif; }
+.gp-measurement-note { color:#809184; font:12px/1.7 Arial,sans-serif; margin-top:-10px; }
+.gp-result { display:flex; align-items:center; justify-content:space-between; gap:25px; border:1px solid #cbded1; border-radius:10px; padding:24px; background:#eaf3ed; }
+.gp-result h3 { font:500 21px 'Poppins',Arial,sans-serif; margin-top:6px; color:#3e654a; }
+.gp-result p { font:13px/1.8 Arial,sans-serif; color:#6e8171; margin-top:8px; }
+.gp-result>div:last-child { text-align:right; }
+.gp-result strong { display:block; font:500 42px 'Poppins',Arial,sans-serif; color:#376347; }
+.gp-result>div:last-child span { font:12px Arial,sans-serif; color:#6e8171; }
+.gp-progress-panel { padding:24px; background:#fff; border:1px solid #dce5df; border-radius:11px; }
+.gp-progress-panel header { display:flex; align-items:flex-start; justify-content:space-between; gap:20px; }
+.gp-progress-panel h3 { font:500 19px 'Poppins',Arial,sans-serif; color:#3d5c45; margin-top:6px; }
+.gp-progress-panel header p { color:#7b8e7f; font:12px/1.7 Arial,sans-serif; margin-top:7px; }
+.gp-progress-panel header label { display:flex; flex-direction:column; gap:7px; color:#7c8f80; font:11px Arial,sans-serif; }
+.gp-progress-panel select { background:#f8fbf9; border:1px solid #d5e1d8; border-radius:5px; padding:9px 12px; font:12px Arial,sans-serif; color:#4c6d57; }
+.gp-trend-summary { display:flex; flex-wrap:wrap; justify-content:space-between; gap:10px; padding:20px 0; font:13px Arial,sans-serif; color:#476c52; }
+.gp-trend-summary small { color:#8a978d; font-size:11px; max-width:440px; }
+.gp-chart-wrap { width:100%; }
+#gpDailyChart { width:100%; height:auto; display:block; font-family:Arial,sans-serif; }
+.gp-history-empty { padding:40px 20px; border:1px dashed #d8e4da; background:#f8fbf8; border-radius:8px; text-align:center; font:13px/1.8 Arial,sans-serif; color:#819084; }
+.gp-history-table { width:100%; border-collapse:collapse; margin-top:16px; text-align:left; font:12px/1.7 Arial,sans-serif; color:#6b8172; }
+.gp-history-table caption { text-align:left; font:500 13px 'Poppins',Arial,sans-serif; padding:12px 0; color:#46674f; }
+.gp-history-table th { font-weight:500; color:#8a9a8d; padding:10px; border-bottom:1px solid #e0e9e1; }
+.gp-history-table td { padding:12px 10px; border-bottom:1px solid #edf1ed; }
+.gp-score-explainer { font:12px/1.8 Arial,sans-serif; color:#839086; }
+.gp-workspace [hidden] { display:none!important; }
+@media(max-width:1200px) { .gp-session-console { align-items:stretch; flex-direction:column; }.gp-session-actions { justify-content:flex-end; }.gp-exercises button { font-size:11px; padding:12px 10px; } }
+@media(max-width:850px) { .gp-comparison { grid-template-columns:1fr; }.gp-exercises { grid-template-columns:repeat(3,1fr); }.gp-progress-panel header { flex-wrap:wrap; } }
+@media(max-width:600px) { .gp-page-header { flex-wrap:wrap; }.gp-exercises { grid-template-columns:repeat(2,1fr); }.gp-session-metrics { grid-template-columns:repeat(2,1fr); }.gp-result { flex-direction:column; align-items:flex-start; }.gp-result>div:last-child { text-align:left; } }
+/* Six exercise choices fit one desktop workspace; practice and history have their own views. */
+#tab-exercises [hidden] {display:none!important}
+#tab-exercises[data-view="library"]> :not(.gp-page-header):not(.gp-exercises):not(dialog) {display:none!important}
+#tab-exercises[data-view="session"]>.gp-exercises {display:none}
+#tab-exercises[data-view="session"]>.gp-page-header {display:none}
+#tab-exercises .gp-exercises {grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:18px;height:calc(100dvh - 285px);min-height:320px}
+.gp-exercise-card {min-width:0;min-height:0;display:flex;flex-direction:column;background:white;border:1px solid #d8e4dc;border-radius:12px;overflow:hidden}
+#tab-exercises .gp-exercise-card .gp-card-open {flex:1;min-height:0;display:flex;flex-direction:column;align-items:flex-start;gap:10px;text-align:left;background:transparent;padding:20px 24px;border:0;border-radius:0;box-shadow:none}
+#tab-exercises .gp-card-open:hover {background:#f4f8f3}
+#tab-exercises .gp-card-open .gp-card-number {font:11px Arial,sans-serif;color:#82988a;margin:0}
+.gp-card-open strong {font:500 19px/1.45 Poppins,Arial,sans-serif;color:#315540}
+.gp-card-open p {font:13px/1.6 Arial,sans-serif;color:#728276;margin:0}
+.gp-card-open small {font:12px Arial,sans-serif;color:#4c795d;margin-top:auto}
+#tab-exercises .gp-exercise-card .gp-card-progress {min-height:43px;padding:10px 24px;border:0;border-top:1px solid #e4ece6;border-radius:0;background:#f9fbf8;color:#4f755d;font:500 12px Arial,sans-serif;text-align:left}
+.gp-session-toolbar {display:flex;justify-content:space-between;gap:15px}
+.gp-session-toolbar .btn {min-height:42px;padding:10px 18px}
+.gp-dialog {width:min(600px,calc(100vw - 64px));max-height:calc(100dvh - 64px);box-sizing:border-box;margin:auto;padding:40px 32px 30px;border:1px solid #d7e2da;border-radius:16px;background:#fff;color:#34533f;box-shadow:0 24px 80px #23423133;overflow:auto}
+.gp-dialog:not([open]) {display:none!important}
+.gp-dialog::backdrop {background:#19382d66;backdrop-filter:blur(4px)}
+.gp-dialog-close {position:absolute;right:14px;top:12px;width:36px;height:36px;border:0;border-radius:50%;background:transparent;color:#718278;font:26px Arial,sans-serif;cursor:pointer}
+.gp-dialog-close:hover {background:#edf3ed}
+.gp-dialog h2 {font:500 25px/1.5 Poppins,Arial,sans-serif;margin:12px 0;color:#32563e}
+.gp-dialog>p {font:14px/1.7 Arial,sans-serif;color:#718175}
+#gpInstructionsSteps {padding-left:22px;margin:25px 0 30px;display:flex;flex-direction:column;gap:18px;color:#45624d;font:15px/1.8 Arial,sans-serif}
+.gp-dialog>.btn-primary {min-height:48px;padding:12px 26px;font-size:15px}
+.gp-progress-dialog {width:min(960px,calc(100vw - 64px))}
+.gp-progress-dialog .gp-progress-panel {border:0;padding:0;margin-top:25px}
+@media(min-height:680px) {#tab-exercises[data-view="session"] .gp-video-wrap,#tab-exercises[data-view="session"] .gp-hand-wrap {height:clamp(260px,38vh,430px)}}
+/* Reserve the footer height so the exercise library has no page scroll. */
+@media(min-width:1000px) and (min-height:650px) {
+    body:has(#tab-exercises.active[data-view="library"]) .workspace-layout {height:calc(100dvh - 124px);min-height:0;flex:none}
+    body:has(#tab-exercises.active[data-view="library"]) .clinical-sidebar {height:calc(100dvh - 124px)}
+    #tab-exercises[data-view="library"] .gp-exercises {height:calc(100dvh - 300px);min-height:0}
+}
+@media(min-width:1000px) and (min-height:650px) {
+    body:has(#tab-exercises.active[data-view="library"]) .app-container {min-height:calc(100dvh - 44px)}
+}
+/* Keep session controls above a comparison that fills the available desktop height. */
+@media(min-width:1000px) and (min-height:650px) {
+    body:has(#tab-exercises.active[data-view="session"]) .app-container {min-height:calc(100dvh - 44px)}
+    body:has(#tab-exercises.active[data-view="session"]) .workspace-layout {height:calc(100dvh - 124px);min-height:0;flex:none}
+    body:has(#tab-exercises.active[data-view="session"]) .clinical-sidebar {height:calc(100dvh - 124px)}
+    .main-content-area:has(#tab-exercises.active[data-view="session"]) {padding:20px 32px}
+    #tab-exercises.active[data-view="session"] {display:grid;height:100%;min-height:0;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto auto;gap:10px 18px}
+    #tab-exercises[data-view="session"] .gp-session-heading {grid-column:1;grid-row:1;padding:0}
+    #tab-exercises[data-view="session"] .gp-session-heading h3 {font-size:20px}
+    #tab-exercises[data-view="session"] .gp-session-heading p {font-size:12px;margin-top:4px}
+    #tab-exercises[data-view="session"] .gp-session-toolbar {grid-column:2;grid-row:1;justify-content:flex-end;align-items:center}
+    #tab-exercises[data-view="session"] .gp-session-toolbar .btn {font-size:12px;min-height:40px;padding:8px 14px}
+    #tab-exercises[data-view="session"] .gp-session-console {grid-column:1/-1;grid-row:2;padding:12px 20px}
+    #tab-exercises[data-view="session"] .gp-session-metrics strong {font-size:23px;margin-top:2px}
+    #tab-exercises[data-view="session"] .gp-comparison {grid-column:1/-1;grid-row:3;min-height:0;height:100%}
+    #tab-exercises[data-view="session"] .gp-panel {display:flex;flex-direction:column;min-height:0}
+    #tab-exercises[data-view="session"] .gp-panel header {padding:12px 16px;flex-shrink:0}
+    #tab-exercises[data-view="session"] .gp-video-wrap,
+    #tab-exercises[data-view="session"] .gp-hand-wrap {flex:1;height:auto;min-height:0}
+    #tab-exercises[data-view="session"] .gp-panel-caption {min-height:0;padding:9px 16px;flex-shrink:0;font-size:12px}
+    #tab-exercises[data-view="session"] .gp-feedback {grid-column:1/-1;grid-row:4;font-size:13px}
+    #tab-exercises[data-view="session"] .gp-feedback:empty {display:none}
+    #tab-exercises[data-view="session"] .gp-result {grid-column:1/-1;grid-row:5;padding:12px 18px;gap:16px}
+    #tab-exercises[data-view="session"] .gp-result h3 {font-size:17px}
+    #tab-exercises[data-view="session"] .gp-result p {margin-top:3px;font-size:12px}
+}
+/* Card movement previews remain still until hovered or keyboard-focused. */
+#tab-exercises .gp-exercise-card .gp-card-open {position:relative;gap:7px;padding-top:18px;padding-bottom:18px}
+#tab-exercises .gp-card-open strong {max-width:calc(100% - 80px);font-size:18px}
+#tab-exercises .gp-card-open .gp-card-number {margin-bottom:3px}
+.gp-card-preview {position:absolute;right:12px;top:10px;width:92px;height:69px;pointer-events:none}
+#tab-exercises .gp-card-open p {line-height:1.5}
+#tab-exercises .gp-card-open small {margin-top:auto}
+#tab-exercises .gp-card-open .gp-card-last {font:11px/1.5 Arial,sans-serif;color:#85968b;margin:0;display:block}
+@media(min-width:1500px) {.gp-card-preview {width:112px;height:84px}#tab-exercises .gp-card-open strong {max-width:calc(100% - 105px)}}
+/* Separate saved activity from the card body so it cannot overlap the graph link. */
+#tab-exercises .gp-card-footer {display:flex;align-items:center;justify-content:space-between;gap:10px;min-height:47px;flex-shrink:0;padding:8px 18px;border-top:1px solid #e4ece6;background:#f9fbf8;box-sizing:border-box}
+#tab-exercises .gp-card-footer .gp-card-progress {flex-shrink:0;justify-content:center;white-space:nowrap;text-align:center;box-sizing:border-box}
+#tab-exercises .gp-card-footer .gp-card-last {font:10px/1.5 Arial,sans-serif;color:#7b8f81;text-align:right;max-width:145px}
+#tab-exercises .gp-exercise-card .gp-card-open {padding:14px 20px;gap:5px}
+#tab-exercises .gp-card-open small {display:none}
+#tab-exercises .gp-card-open strong {font-size:17px;line-height:1.45}
+#tab-exercises .gp-card-open p {font-size:12px;line-height:1.5;margin-top:2px}
+.gp-card-preview {right:8px;top:7px;width:82px;height:62px}
+@media(min-width:1500px) {#tab-exercises .gp-card-open strong {font-size:20px}.gp-card-preview {width:105px;height:79px}#tab-exercises .gp-card-open p {font-size:14px}}
+/* White exercise cards with restrained depth and a clear hover response. */
+#tab-exercises .gp-exercise-card {background:#fff;border-color:#dce3e8;box-shadow:0 2px 6px #263c4e04;transition:transform .2s ease,box-shadow .2s ease,border-color .2s ease}
+#tab-exercises .gp-exercise-card .gp-card-open,
+#tab-exercises .gp-exercise-card .gp-card-open:hover,
+#tab-exercises .gp-exercise-card .gp-card-open[aria-pressed="true"],
+#tab-exercises .gp-exercise-card .gp-card-footer,
+#tab-exercises .gp-exercise-card .gp-card-progress {background:#fff;box-shadow:none}
+#tab-exercises .gp-exercise-card .gp-card-footer {border-top-color:#edf0f3}
+#tab-exercises .gp-exercise-card:hover,
+#tab-exercises .gp-exercise-card:focus-within {transform:translateY(-4px);border-color:#9bb5c8;box-shadow:0 12px 28px #35546b12,0 3px 8px #35546b08}
+#tab-exercises .gp-card-preview {transition:transform .25s ease,filter .25s ease;transform-origin:center}
+#tab-exercises .gp-exercise-card:hover .gp-card-preview,
+#tab-exercises .gp-exercise-card:focus-within .gp-card-preview {transform:scale(1.06);filter:drop-shadow(0 4px 5px #507e9b12)}
+#tab-exercises .gp-card-footer .gp-card-progress {color:#58758a;transition:color .15s ease}
+#tab-exercises .gp-card-footer .gp-card-progress:hover {color:#2e5877;text-decoration:underline;text-underline-offset:4px}
+#tab-exercises .gp-card-open:focus-visible {outline:2px solid #83a5bf;outline-offset:-4px}
+@media(prefers-reduced-motion:reduce) {#tab-exercises .gp-exercise-card,#tab-exercises .gp-card-preview {transition:none}#tab-exercises .gp-exercise-card:hover,#tab-exercises .gp-exercise-card:focus-within,#tab-exercises .gp-exercise-card:hover .gp-card-preview,#tab-exercises .gp-exercise-card:focus-within .gp-card-preview {transform:none}}
+/* The removed footer no longer reserves space beneath the desktop workspace. */
+.app-container {min-height:100dvh}
+.workspace-layout {min-height:calc(100dvh - 80px)}
+.clinical-sidebar {height:calc(100dvh - 80px)}
+@media(min-width:1000px) and (min-height:650px) {
+    body:has(#tab-exercises.active) .app-container {min-height:100dvh}
+    body:has(#tab-exercises.active) .workspace-layout {height:calc(100dvh - 80px);min-height:0;flex:none}
+    body:has(#tab-exercises.active) .clinical-sidebar {height:calc(100dvh - 80px)}
+    #tab-exercises[data-view="library"] .gp-exercises {height:calc(100dvh - 256px)}
+}
+@media(min-width:1000px) and (min-height:650px) {
+    body:has(#tab-exercises.active[data-view]) .app-container {min-height:100dvh}
+    body:has(#tab-exercises.active[data-view]) .workspace-layout {height:calc(100dvh - 80px);min-height:0;flex:none}
+    body:has(#tab-exercises.active[data-view]) .clinical-sidebar {height:calc(100dvh - 80px)}
+}
+/* Balanced card typography, preview placement and quiet metadata. */
+#tab-exercises .gp-exercise-card {border-radius:14px;box-shadow:0 3px 12px #243e5005}
+#tab-exercises .gp-exercise-card .gp-card-open {padding:24px 26px 20px;gap:0;justify-content:flex-start}
+#tab-exercises .gp-card-open .gp-card-number {margin:0 0 14px;font:500 11px/1 Arial,sans-serif;letter-spacing:1px;color:#91a4b1}
+#tab-exercises .gp-card-open strong {max-width:calc(100% - 88px);font:500 19px/1.45 Poppins,Arial,sans-serif;letter-spacing:-.3px;color:#314c59;margin:0 0 12px}
+#tab-exercises .gp-card-open p {max-width:95%;font:14px/1.65 Arial,sans-serif;color:#7a8990;margin:0}
+#tab-exercises .gp-card-preview {top:19px;right:20px;width:90px;height:76px;padding:4px;border-radius:12px;background:#f6f9fb;box-sizing:border-box}
+#tab-exercises .gp-card-footer {padding:13px 25px;min-height:58px;gap:16px;border-top-color:#edf1f4}
+#tab-exercises .gp-card-footer .gp-card-progress {font:500 13px/1.4 Arial,sans-serif;display:inline-flex;align-items:center;gap:8px;color:#4d718c}
+#tab-exercises .gp-card-footer .gp-card-progress::after {content:'↗';font-size:15px;opacity:.55;transition:transform .2s ease,opacity .2s ease}
+#tab-exercises .gp-exercise-card:hover .gp-card-progress::after {transform:translate(2px,-2px);opacity:1}
+#tab-exercises .gp-card-footer .gp-card-last {font:11px/1.6 Arial,sans-serif;color:#8a979d;max-width:155px}
+@media(min-width:1500px) {
+    #tab-exercises .gp-exercise-card .gp-card-open {padding:28px 30px 24px}
+    #tab-exercises .gp-card-open strong {font-size:22px;max-width:calc(100% - 100px);margin-bottom:14px}
+    #tab-exercises .gp-card-open p {font-size:15px;max-width:90%}
+    #tab-exercises .gp-card-preview {width:105px;height:88px;top:22px;right:24px}
+    #tab-exercises .gp-card-footer {padding:16px 30px;min-height:64px}
+    #tab-exercises .gp-card-footer .gp-card-progress {font-size:14px}
+    #tab-exercises .gp-card-footer .gp-card-last {font-size:12px;max-width:190px}
+}
+@media(min-width:1000px) and (max-height:780px) {
+    #tab-exercises .gp-exercise-card .gp-card-open {padding:18px 22px 16px}
+    #tab-exercises .gp-card-open .gp-card-number {margin-bottom:10px}
+    #tab-exercises .gp-card-open strong {font-size:17px;margin-bottom:8px}
+    #tab-exercises .gp-card-open p {font-size:12px;line-height:1.55}
+    #tab-exercises .gp-card-preview {width:76px;height:64px;top:12px;right:14px}
+    #tab-exercises .gp-card-footer {padding:10px 20px;min-height:48px;gap:10px}
+    #tab-exercises .gp-card-footer .gp-card-progress {font-size:12px}
+    #tab-exercises .gp-card-footer .gp-card-last {font-size:10px}
+}
+@media(prefers-reduced-motion:reduce) {#tab-exercises .gp-card-progress::after {transition:none;transform:none!important}}
+/* Centre the exercise content instead of stacking it against the top edge. */
+#tab-exercises .gp-exercise-card .gp-card-open {display:flex;justify-content:center;align-items:flex-start;padding:42px 28px 28px;gap:0}
+#tab-exercises .gp-card-open .gp-card-number {position:absolute;top:22px;left:28px;margin:0;font-size:11px}
+#tab-exercises .gp-card-open strong {max-width:calc(100% - 112px);margin:0 0 10px;line-height:1.45}
+#tab-exercises .gp-card-open p {max-width:calc(100% - 112px);margin:0;line-height:1.65}
+#tab-exercises .gp-card-preview {top:50%;right:24px;transform:translateY(-50%);width:100px;height:88px;padding:0;background:transparent;border-radius:0}
+#tab-exercises .gp-exercise-card:hover .gp-card-preview,
+#tab-exercises .gp-exercise-card:focus-within .gp-card-preview {transform:translateY(-50%) scale(1.05);filter:none}
+@media(min-width:1500px) {
+    #tab-exercises .gp-exercise-card .gp-card-open {padding:48px 32px 30px}
+    #tab-exercises .gp-card-open .gp-card-number {top:25px;left:32px}
+    #tab-exercises .gp-card-open strong,#tab-exercises .gp-card-open p {max-width:calc(100% - 130px)}
+    #tab-exercises .gp-card-preview {width:120px;height:105px;right:24px}
+}
+@media(min-width:1000px) and (max-height:780px) {
+    #tab-exercises .gp-exercise-card .gp-card-open {padding:34px 20px 14px}
+    #tab-exercises .gp-card-open .gp-card-number {top:15px;left:20px;font-size:10px}
+    #tab-exercises .gp-card-open strong {max-width:calc(100% - 66px);font-size:16px;margin-bottom:7px}
+    #tab-exercises .gp-card-open p {max-width:calc(100% - 66px);font-size:12px;line-height:1.5}
+    #tab-exercises .gp-card-preview {width:68px;height:64px;right:10px}
+}
+@media(prefers-reduced-motion:reduce) {
+    #tab-exercises .gp-card-preview,
+    #tab-exercises .gp-exercise-card:hover .gp-card-preview,
+    #tab-exercises .gp-exercise-card:focus-within .gp-card-preview {transform:translateY(-50%)!important}
+}
+/* Progress is a compact, explorable report rather than a static chart. */
+#gpProgressDialog {width:min(940px,calc(100vw - 64px));padding:32px;max-height:calc(100dvh - 48px)}
+#gpProgressDialog>h2 {font-size:24px;margin:4px 35px 22px 0}
+#gpProgressDialog .gp-progress-panel {margin:0}
+#gpProgressDialog .gp-progress-panel header {gap:24px;padding-bottom:18px;border-bottom:1px solid #e8edf1}
+#gpProgressDialog .gp-progress-panel h3 {font-size:17px;color:#3c596b;margin:0}
+#gpProgressDialog .gp-progress-panel header .gp-kicker {display:none}
+#gpProgressDialog .gp-progress-panel header p {font-size:11px;max-width:480px}
+.gp-chart-toolbar {display:flex;align-items:center;justify-content:space-between;gap:18px;margin:18px 0}
+.gp-chart-toolbar label {display:flex;gap:12px;align-items:center;font-size:12px;color:#7a8c98}
+.gp-chart-toolbar>span {font-size:11px;color:#8a9aa4}
+.gp-progress-stats {display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.gp-progress-stats>div {padding:14px 18px;background:#f6f9fb;border:1px solid #e5edf2;border-radius:9px}
+.gp-progress-stats span {display:block;font-size:11px;color:#7d909d;margin-bottom:7px}
+.gp-progress-stats strong {font-size:24px;font-weight:500;color:#365b75}
+#gpProgressDialog .gp-trend-summary {padding:16px 0;font-size:12px;color:#5d7f95}
+#gpProgressDialog .gp-chart-wrap {background:#fff;border:1px solid #e4ebf0;border-radius:12px;padding:16px 12px 0;box-sizing:border-box}
+#gpDailyChart {font-family:Poppins,Arial,sans-serif!important}
+.gp-chart-point {cursor:pointer;outline:none}
+.gp-chart-point:focus-visible circle:last-child {stroke:#2d5673;stroke-width:3}
+.gp-chart-detail {min-height:44px;padding:11px 16px;border-top:1px solid #edf1f5;color:#476d87;font-size:12px;margin-top:4px;background:#f8fafc;border-radius:0 0 10px 10px}
+#gpProgressDialog .gp-history-table-wrap {max-height:230px;overflow:auto;margin-top:12px}
+#gpProgressDialog .gp-history-table {margin:0;font-size:12px}
+#gpProgressDialog .gp-history-table th {background:white;position:sticky;top:0;color:#7a8e9d}
+/* Fit the report within the viewport; only the recent-session list scrolls. */
+#gpProgressDialog[open] {display:flex;flex-direction:column;height:min(790px,calc(100dvh - 48px));overflow:hidden;padding:26px 30px}
+#gpProgressDialog>h2 {flex-shrink:0;font-size:22px;margin:0 35px 16px 0}
+#gpProgressDialog .gp-progress-panel {display:flex;flex-direction:column;min-height:0;flex:1}
+#gpProgressDialog .gp-progress-panel header {flex-shrink:0;padding-bottom:12px;gap:16px}
+#gpProgressDialog .gp-progress-panel header p {margin-top:5px}
+#gpProgressDialog .gp-chart-toolbar {flex-shrink:0;margin:12px 0}
+#gpProgressDialog .gp-progress-stats {flex-shrink:0}
+#gpProgressDialog .gp-progress-stats>div {padding:10px 15px}
+#gpProgressDialog .gp-progress-stats strong {font-size:21px}
+#gpProgressDialog .gp-progress-stats span {margin-bottom:4px}
+#gpProgressDialog .gp-trend-summary {flex-shrink:0;padding:11px 0}
+#gpProgressDialog .gp-chart-wrap {flex:1;min-height:185px;display:flex;flex-direction:column;padding:8px 10px 0}
+#gpProgressDialog #gpDailyChart {flex:1;height:0;min-height:135px;width:100%}
+#gpProgressDialog .gp-chart-detail {flex-shrink:0;min-height:36px;padding:8px 13px;font-size:11px}
+#gpProgressDialog .gp-history-table-wrap {max-height:140px;min-height:70px;flex:0 1 140px;margin-top:8px}
+#gpProgressDialog .gp-history-table caption {padding:8px 0}
+#gpProgressDialog .gp-history-table td,#gpProgressDialog .gp-history-table th {padding:8px 10px}
+#gpProgressDialog .gp-chart-wrap {min-height:230px}
+#gpProgressDialog #gpDailyChart {min-height:180px}
+#gpProgressDialog .gp-history-table-wrap {flex-basis:95px;max-height:140px}
+/* Focused progress report: compact filters and metrics, generous plot, optional history. */
+#gpProgressDialog[open] {width:min(980px,calc(100vw - 64px));height:min(800px,calc(100dvh - 48px));padding:25px 30px;gap:0;background:#fff}
+#gpProgressDialog .gp-report-heading {flex-shrink:0;padding:0 34px 16px 0;margin:0;border:0}
+#gpProgressDialog .gp-report-heading .gp-kicker {display:block;font-size:9px;letter-spacing:1.4px;color:#8a9ba7;margin-bottom:6px}
+#gpProgressDialog .gp-report-heading h2 {font-size:23px;line-height:1.45;font-weight:500;color:#304d61;margin:0}
+#gpProgressDialog .gp-progress-panel {gap:0;overflow:visible}
+.gp-report-filters {display:flex;justify-content:space-between;align-items:center;gap:20px;border-top:1px solid #e9eef2;border-bottom:1px solid #e9eef2;padding:11px 0;margin-bottom:16px;flex-shrink:0}
+.gp-report-filters label {display:flex;align-items:center;gap:12px;font-size:11px;color:#8796a3}
+#gpProgressDialog .gp-report-filters select {background:#fff;border:1px solid #dce5ec;border-radius:7px;padding:8px 12px;min-height:36px;color:#476578;font-size:12px}
+#gpProgressDialog .gp-progress-stats {gap:0;margin-bottom:15px}
+#gpProgressDialog .gp-progress-stats>div {padding:0 24px;border:0;border-right:1px solid #e8edf2;border-radius:0;background:white}
+#gpProgressDialog .gp-progress-stats>div:first-child {padding-left:0}
+#gpProgressDialog .gp-progress-stats>div:last-child {border:0}
+#gpProgressDialog .gp-progress-stats span {font-size:11px;color:#8495a3;margin:0 0 5px}
+#gpProgressDialog .gp-progress-stats strong {display:block;font-size:27px;font-weight:500;line-height:1.3;color:#365d7a}
+#gpProgressDialog .gp-progress-stats small {display:block;font-size:10px;color:#9aa6b0;margin-top:3px}
+.gp-plot-heading {display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:10px;flex-shrink:0}
+#gpProgressDialog .gp-plot-heading h3 {font-size:13px;margin:0;color:#567488}
+.gp-plot-heading>span {font-size:10px;color:#94a2ad}
+#gpProgressDialog .gp-chart-wrap {position:relative;flex:1;min-height:210px;border:1px solid #e5ecf2;border-radius:12px;background:#fcfdff;padding:14px 12px 0}
+#gpProgressDialog #gpDailyChart {width:100%;min-height:160px;height:0;flex:1;overflow:visible}
+#gpProgressDialog .gp-chart-detail {background:transparent;font-size:10px;color:#8194a3;padding:8px 10px;margin:0;min-height:32px}
+#gpProgressDialog .gp-chart-tooltip {position:absolute;z-index:5;pointer-events:none;min-width:165px;padding:12px 15px;background:#fff;border:1px solid #d8e4ee;border-radius:9px;box-shadow:0 6px 22px #274f6b20;color:#385b74;font-size:12px;line-height:1.8;white-space:pre-line}
+#gpProgressDialog .gp-trend-summary {padding:10px 0;color:#668398;font-size:11px;line-height:1.6;flex-shrink:0}
+.gp-recent-sessions {border-top:1px solid #e8edf2;flex-shrink:0;margin-top:3px;max-height:145px;overflow:auto}
+.gp-recent-sessions>summary {cursor:pointer;padding:12px 0 2px;font-size:12px;color:#57768c;list-style-position:inside}
+#gpProgressDialog .gp-recent-sessions .gp-history-table-wrap {max-height:100px;min-height:0;margin-top:8px}
+#gpProgressDialog .gp-recent-sessions .gp-history-table caption {display:none}
+#gpProgressDialog .gp-history-table th {font-size:10px;font-weight:500;color:#8b9eac}
+#gpProgressDialog .gp-history-table td {font-size:11px;color:#60798a}
+#gpProgressDialog .gp-history-table tr:last-child td {border-bottom:0}
+#gpProgressDialog .gp-report-filters {justify-content:flex-end}
+/* Keep the date range with the plot it controls. */
+#gpProgressDialog .gp-report-heading {padding-bottom:20px;border-bottom:1px solid #e9eef2;margin-bottom:20px}
+#gpProgressDialog .gp-progress-stats {margin-bottom:22px}
+#gpProgressDialog .gp-plot-heading {margin-bottom:12px}
+#gpProgressDialog .gp-plot-range {display:flex;align-items:center;margin-left:auto}
+#gpProgressDialog .gp-plot-range select {min-height:34px;padding:6px 11px;border:1px solid #dce5ec;border-radius:6px;background:white;color:#5f7b8e;font-size:11px;cursor:pointer}
+.gp-visually-hidden {position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+/* Small, quiet colour accents keep the exercise library clinical and white. */
+#tab-exercises .gp-exercise-card {--exercise-accent:#688dab;--exercise-wash:#f0f6fb;--exercise-border:#c4d7e6}
+#tab-exercises .gp-exercise-card:nth-child(2),
+#tab-exercises .gp-exercise-card:nth-child(6) {--exercise-accent:#8c83ad;--exercise-wash:#f5f2fa;--exercise-border:#d7d0e7}
+#tab-exercises .gp-exercise-card:nth-child(3),
+#tab-exercises .gp-exercise-card:nth-child(5) {--exercise-accent:#a18b67;--exercise-wash:#faf6ef;--exercise-border:#e4d8c5}
+#tab-exercises .gp-card-open .gp-card-number {display:inline-flex;align-items:center;justify-content:center;min-width:27px;height:23px;padding:0 5px;box-sizing:border-box;border-radius:5px;background:var(--exercise-wash);color:var(--exercise-accent);font-weight:500;letter-spacing:.5px}
+#tab-exercises .gp-card-preview {background:var(--exercise-wash);border-radius:50%;padding:3px}
+#tab-exercises .gp-card-footer .gp-card-progress {color:var(--exercise-accent)}
+#tab-exercises .gp-card-footer .gp-card-progress:hover {color:var(--exercise-accent)}
+#tab-exercises .gp-exercise-card:hover,
+#tab-exercises .gp-exercise-card:focus-within {border-color:var(--exercise-border);box-shadow:0 12px 28px #35546b0e,0 3px 8px #35546b06}
+#tab-exercises .gp-exercise-card:hover .gp-card-footer {background:linear-gradient(90deg,#fff 15%,var(--exercise-wash));border-top-color:var(--exercise-border)}
+#tab-exercises .gp-card-footer {transition:background .2s ease,border-color .2s ease}
+#tab-exercises .gp-page-header .page-eyebrow {color:#7892a7}
+#tab-exercises .gp-page-header h2 {color:#355264}

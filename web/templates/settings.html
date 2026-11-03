@@ -1,0 +1,30 @@
+<section id="tab-settings" class="dashboard-tab-content" aria-labelledby="settingsPageTitle">
+    <header class="settings-page-heading"><div><span class="page-eyebrow">WORKSPACE PREFERENCES</span><h2 class="page-main-heading" id="settingsPageTitle">Settings</h2><p class="page-main-desc">Connect your glove and tune how your movements are measured.</p></div><span class="settings-profile-label">Right hand · Current profile</span></header>
+
+    <section class="settings-card" aria-labelledby="settingsSourceTitle">
+        <div class="settings-section-heading"><div><span class="settings-section-number">01 / CONNECTION</span><h3 id="settingsSourceTitle">Choose your data source</h3><p>The selected source is used across your workspace.</p></div><span class="settings-source-status" id="settingsSourceStatus" role="status">{{ 'Simulation active' if data_source == 'simulate' else 'Waiting for glove' }}</span></div>
+        <fieldset class="settings-source-options"><legend class="sr-only">Data source</legend>
+            <label class="settings-source-option"><input type="radio" name="sourceRadio" value="simulate" {% if data_source == 'simulate' %}checked{% endif %} onchange="switchDataSource('simulate')"><span><strong>Simulated data</strong><span>Explore the hand mirror and games with generated sensor readings.</span><small>Ready to explore · No glove needed</small></span></label>
+            <label class="settings-source-option"><input type="radio" name="sourceRadio" value="mqtt" {% if data_source == 'mqtt' %}checked{% endif %} onchange="switchDataSource('mqtt')"><span><strong>Wireless glove</strong><span>Receive all five fingers, grip pressure and wrist movement over Wi-Fi.</span><small>ESP32 → Raspberry Pi · MQTT</small></span></label>
+            <label class="settings-source-option"><input type="radio" name="sourceRadio" value="serial" {% if data_source == 'serial' %}checked{% endif %} onchange="switchDataSource('serial')"><span><strong>USB glove</strong><span>Mirror your hand using the connected ESP32 and its sensors.</span><small>USB · 115200 baud</small></span></label>
+        </fieldset><p class="settings-source-note">Source changes apply immediately. Calibration changes are saved separately below.</p>
+    </section>
+
+    <form id="settingsCalibrationForm" onsubmit="event.preventDefault();saveCalibration()" oninput="markCalibrationChanged()">
+        <input type="hidden" id="calibEmgBaseline" value="{{ calibration.emg_baseline }}"><input type="hidden" id="calibFsrMax" value="{{ calibration.fsr_max_raw }}"><input type="hidden" id="calibFsrBaseline" value="{{ calibration.fsr_baseline }}">
+        <div class="settings-calibration-grid">
+            <section class="settings-card" aria-labelledby="settingsFlexTitle"><div class="settings-section-heading"><div><span class="settings-section-number">02 / FINGER MOVEMENT</span><h3 id="settingsFlexTitle">Flex sensor calibration</h3><p>Enter each sensor’s reading with the finger relaxed, then comfortably closed.</p></div><span class="settings-unit-label">Raw ADC · 0–4095</span></div>
+                <table class="settings-flex-table"><thead><tr><th scope="col">Finger</th><th scope="col">Relaxed hand</th><th scope="col">Closed hand</th></tr></thead><tbody>
+                {% for key, label, prefix in [('thumb','Thumb','Thumb'),('index','Index finger','Index'),('middle','Middle finger','Middle'),('ring','Ring finger','Ring'),('pinky','Little finger','Pinky')] %}
+                    <tr><th scope="row"><span class="settings-finger-index">{{ loop.index }}</span>{{ label }}</th><td><input type="number" id="calib{{ prefix }}Min" value="{{ calibration.flex[key].min_adc }}" min="0" max="4095" step="1" required aria-label="{{ label }}, relaxed ADC reading" aria-describedby="settingsFlexHint"></td><td><input type="number" id="calib{{ prefix }}Max" value="{{ calibration.flex[key].max_adc }}" min="0" max="4095" step="1" required aria-label="{{ label }}, closed ADC reading" aria-describedby="settingsFlexHint"></td></tr>
+                {% endfor %}
+                </tbody></table><p class="settings-field-note" id="settingsFlexHint">Relaxed and closed readings must differ. A reverse-mounted sensor may have a lower closed reading.</p>
+            </section>
+            <div class="settings-side-column"><section class="settings-card" aria-labelledby="settingsThresholdTitle"><div class="settings-section-heading"><div><span class="settings-section-number">03 / SIGNAL DETECTION</span><h3 id="settingsThresholdTitle">Signal thresholds</h3><p>Set when muscle activity and grip contact are detected.</p></div></div>
+                <label class="settings-field" for="calibEmgThresh"><span>Muscle activity <small>EMG</small></span><span class="settings-unit-input"><input type="number" id="calibEmgThresh" value="{{ calibration.emg_active_threshold }}" min="0" step="0.1" required><span>µV</span></span><small>Minimum signal for active muscle effort.</small></label>
+                <label class="settings-field" for="calibFsrThresh"><span>Grip contact <small>FSR</small></span><span class="settings-unit-input"><input type="number" id="calibFsrThresh" value="{{ calibration.fsr_contact_threshold }}" min="0" max="4095" step="1" required><span>ADC</span></span><small>Minimum pressure reading for contact.</small></label>
+            </section><aside class="settings-calibration-note"><strong>A comfortable position comes first.</strong><p>Keep the glove in the same position while recording both readings. Use a comfortable movement range.</p><p>Changing the data source does not erase your saved calibration.</p></aside></div>
+        </div>
+        <div class="settings-save-bar"><div><strong id="settingsSaveState">Calibration up to date</strong><p id="settingsSaveFeedback" role="status" aria-live="polite">Your saved values are loaded for this profile.</p></div><div class="settings-save-actions"><button class="btn btn-outline" type="button" onclick="discardCalibrationChanges()">Discard changes</button><button class="btn btn-primary" type="submit" id="settingsSaveButton">Save calibration</button></div></div>
+    </form>
+</section>

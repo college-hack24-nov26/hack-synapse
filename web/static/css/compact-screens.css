@@ -1,0 +1,107 @@
+/* Local adjustments only: retain the existing page and modal structures. */
+
+#tab-exercises .gp-card-footer{flex-wrap:wrap}
+#tab-exercises .gp-card-footer .gp-card-last{flex:1 1 110px}
+#tab-exercises .gp-card-footer .gp-card-progress{max-width:100%;white-space:normal}
+#tab-games .rehab-card-copy{min-width:0;overflow-wrap:break-word}
+dialog :is(button,.btn),.modal-window .btn{max-width:100%;white-space:normal;overflow-wrap:break-word}
+.gp-session-actions,.game-result-actions,.glove-setup-footer-actions{flex-wrap:wrap}
+@media(min-width:900px) and (max-height:850px){
+ .main-content-area:has(:is(#tab-telemetry,#tab-exercises,#tab-games).active){padding-top:12px;padding-bottom:12px}
+ #tab-exercises .gp-page-header{margin-bottom:14px}
+ #tab-exercises .gp-page-header .page-eyebrow{display:none}
+ #tab-exercises .gp-page-header h2{font-size:25px;margin-bottom:4px}
+ #tab-exercises .gp-page-header p{font-size:13px;margin-top:4px}
+ #tab-exercises[data-view="library"] .gp-exercises{height:calc(100dvh - 225px)!important;min-height:0;gap:12px}
+ #tab-exercises .gp-exercise-card .gp-card-open{padding:12px 16px 6px;grid-template-columns:minmax(0,1fr) 64px;row-gap:5px;grid-template-rows:auto auto 1fr}
+ #tab-exercises .gp-card-open strong{font-size:17px;line-height:1.3}
+ #tab-exercises .gp-card-open p{font-size:12px;line-height:1.45}
+ #tab-exercises .gp-card-preview{max-height:84px}
+ #tab-exercises .gp-exercise-card .gp-card-footer{padding:6px 14px 10px;gap:6px;min-height:0}
+ #tab-exercises .gp-card-footer .gp-card-last{font-size:10px}
+ #tab-exercises .gp-card-footer .gp-card-progress{font-size:11px;padding:6px 10px;min-height:30px}
+ #tab-games .rehab-heading{margin-bottom:12px}
+ #tab-games .rehab-heading h2{font-size:26px}
+ #tab-games .rehab-heading p{font-size:13px}
+ #tab-games .rehab-section-label{margin-bottom:12px}
+ #tab-games .rehab-activity.game-select-pill{height:calc(100dvh - 270px);min-height:285px;padding:22px}
+ #tab-games .rehab-card-copy{gap:8px;padding-bottom:58px}
+ #tab-games .rehab-card-copy strong{font-size:24px;line-height:1.3}
+ #tab-games .rehab-card-copy>span{font-size:13px;line-height:1.5}
+ #tab-games .rehab-card-art{width:62px;height:68px;bottom:70px;right:20px}
+ #tab-games .rehab-card-tag{padding-right:70px}
+ #tab-telemetry .page-title-section{margin-bottom:10px;min-height:0}
+ #tab-telemetry .page-main-heading{font-size:25px}
+ #tab-telemetry .page-main-desc{font-size:12px}
+ #tab-telemetry .telemetry-main-grid{height:calc(100dvh - 200px);min-height:0}
+ #tab-telemetry :is(.tel-col-left,.tel-col-right,.card-combined-hand,.hand-3d-section,.card-live-graphs,.mini-charts-2x2-grid,.mini-chart-cell){min-height:0}
+ #tab-telemetry .card-combined-hand{height:100%;grid-template-rows:minmax(0,1fr)}
+ #tab-telemetry .sensor-channels-list{gap:6px}
+ #tab-telemetry .sc-name{font-size:10px}
+ #tab-telemetry .card-movement-clf{padding:12px}
+ #tab-telemetry .classification-result{padding:6px 0}
+ #tab-telemetry .classification-action,#tab-telemetry .classification-action img{height:60px}
+}
+@media(max-height:800px){
+ dialog.gp-dialog{padding:24px;max-height:calc(100dvh - 28px)}
+ dialog.gp-dialog h2{font-size:22px;margin:8px 0}
+ #gpInstructions ol{margin:12px 0;gap:12px}
+ #gpInstructions ol li{padding-top:5px;padding-bottom:5px}
+ #tab-games .game-instructions-dialog{padding:40px 22px 18px;max-height:calc(100dvh - 28px)}
+ #tab-games[data-stage="instructions"] .rehab-player-heading{padding:16px}
+ #tab-games[data-stage="instructions"] .rehab-companion>.rehab-help{padding:18px}
+ #tab-games[data-stage="instructions"] .rehab-player{min-height:0}
+ .glove-setup-header{padding:18px 24px 12px}
+ .glove-setup-header h2{font-size:23px}
+ .glove-setup-body{padding:16px 24px;gap:20px;min-height:0}
+ .glove-setup-illustration{height:clamp(160px,30dvh,260px)}
+ .glove-setup-illustration canvas{max-height:100%;width:auto;max-width:100%;margin:0}
+ .glove-setup-footer{padding:14px 24px}
+ #modalHistory .history-header{padding:16px 22px 12px}
+ #modalHistory .history-header h2{font-size:22px}
+}
+
+@media(min-width:900px){
+ body:has(#tab-telemetry.active){--tel-header:clamp(60px,9vh,80px);--tel-sidebar:clamp(180px,16vw,240px);overflow:hidden}
+ body:has(#tab-telemetry.active) .app-container{height:100dvh;min-height:0!important;overflow:hidden;box-sizing:border-box}
+ body:has(#tab-telemetry.active) .app-header{height:var(--tel-header);min-height:0;padding-inline:clamp(14px,2vw,30px)}
+ body:has(#tab-telemetry.active) .workspace-layout{height:calc(100dvh - var(--tel-header))!important;min-height:0!important}
+ body:has(#tab-telemetry.active) .clinical-sidebar{top:var(--tel-header);width:var(--tel-sidebar);height:calc(100dvh - var(--tel-header))!important;min-height:0;padding:clamp(10px,2vh,24px) clamp(10px,1.5vw,22px);box-sizing:border-box}
+ body:has(#tab-telemetry.active) .top-nav-tab{padding:clamp(9px,1.8vh,18px) 12px;font-size:clamp(11px,.95vw,14px);min-height:0}
+ body:has(#tab-telemetry.active) .sidebar-bottom{padding-top:10px}
+ body:has(#tab-telemetry.active) .main-content-area{margin-left:var(--tel-sidebar);width:calc(100% - var(--tel-sidebar));height:100%;min-height:0;max-width:none;padding:clamp(10px,1.8vh,22px) clamp(14px,1.8vw,28px)!important;box-sizing:border-box}
+ body.sidebar-collapsed:has(#tab-telemetry.active) .main-content-area{margin-left:0;width:100%}
+ #tab-telemetry.active{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto minmax(0,1fr);height:100%;min-height:0;gap:clamp(8px,1.5vh,16px)}
+ #tab-telemetry .page-title-section{display:block;min-height:0;margin:0}
+ #tab-telemetry .page-main-heading{font-size:clamp(22px,2.1vw,32px);line-height:1.25;margin:0}
+ #tab-telemetry .page-main-desc{font-size:clamp(11px,.95vw,14px);margin-top:5px;line-height:1.5}
+ #tab-telemetry .telemetry-main-grid{height:100%!important;min-height:0;grid-template-columns:minmax(0,1.8fr) minmax(260px,1fr);gap:clamp(10px,1.2vw,20px);align-items:stretch}
+ #tab-telemetry .tel-col-left{height:100%;min-height:0;display:flex}
+ #tab-telemetry .card-combined-hand{display:grid;height:100%;min-height:0;grid-template-columns:minmax(0,1fr) clamp(145px,13vw,200px);grid-template-rows:minmax(0,1fr);width:100%}
+ #tab-telemetry .hand-3d-section{display:flex;flex-direction:column;min-height:0;padding:12px 12px 34px;border-bottom:0;border-right:1px solid #e3dfcf}
+ #tab-telemetry .hand-3d-header{flex-shrink:0;margin-bottom:0;gap:6px;flex-wrap:wrap;font-size:clamp(10px,.9vw,13px)}
+ #tab-telemetry .canvas-wrapper-clean{flex:1;height:auto!important;min-height:0!important}
+ #tab-telemetry .sensor-readings-section{display:flex;flex-direction:column;min-height:0;padding:clamp(9px,1vw,16px);gap:8px;justify-content:flex-start}
+ #tab-telemetry .sensor-readings-section .section-title-row{flex-shrink:0;flex-wrap:wrap;gap:4px}
+ #tab-telemetry .sensor-channels-list{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(8,minmax(0,1fr));flex:1;min-height:0;gap:clamp(3px,.7vh,8px)}
+ #tab-telemetry .sensor-channel-row{min-height:0}
+ #tab-telemetry .sc-label-row{flex-wrap:wrap;gap:3px}
+ #tab-telemetry .sc-name{font-size:clamp(9px,.8vw,12px)}
+ #tab-telemetry .sc-val{font-size:clamp(10px,.9vw,14px)}
+ #tab-telemetry .sc-subtext{font-size:clamp(8px,.7vw,11px);line-height:1.3}
+ #tab-telemetry .sc-bar-bg{margin-top:4px;height:3px}
+ #tab-telemetry .tel-col-right{display:grid;height:100%;min-height:0;grid-template-rows:auto minmax(0,1fr);gap:clamp(8px,1.4vh,18px)}
+ #tab-telemetry .card-movement-clf{padding:clamp(10px,1.1vw,18px)}
+ #tab-telemetry .classification-result{padding:6px 0}
+ #tab-telemetry .classification-action,#tab-telemetry .classification-action img{height:clamp(48px,9vh,80px)}
+ #tab-telemetry .card-live-graphs{display:flex;flex-direction:column;min-height:0;padding:clamp(10px,1.1vw,18px);gap:8px}
+ #tab-telemetry .card-live-graphs .card-header-clean{flex-shrink:0;margin-bottom:0;gap:6px;flex-wrap:wrap}
+ #tab-telemetry .mini-charts-2x2-grid{flex:1;min-height:0;grid-template-columns:repeat(2,minmax(0,1fr));grid-template-rows:repeat(2,minmax(0,1fr));gap:8px}
+ #tab-telemetry .mini-chart-cell{min-height:0;min-width:0;padding:clamp(6px,.7vw,12px)}
+ #tab-telemetry .mcc-header{flex-wrap:wrap;gap:4px;font-size:clamp(9px,.8vw,12px)}
+ #tab-telemetry .mcc-legend{font-size:clamp(8px,.65vw,10px)}
+ #tab-telemetry .mcc-canvas-wrap{flex:1;height:auto;min-height:0}
+ #tab-telemetry .mcc-canvas-wrap canvas{height:100%!important}
+ #tab-telemetry .cam-vertical-bar{left:10px;top:48px;gap:6px}
+ #tab-telemetry .cam-vertical-bar button{padding:clamp(6px,1vh,12px) 12px;min-height:0;font-size:clamp(10px,.8vw,13px)}
+}

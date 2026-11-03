@@ -1,0 +1,337 @@
+/* Preserve the original design; extend its fitted layout below the old 650px cutoff. */
+@media (min-width:900px) and (min-height:500px) {
+    .main-content-area:has(#tab-telemetry.active) {
+        padding:20px 24px;
+        max-width:none;
+    }
+    #tab-telemetry {
+        --telemetry-frame-height:calc(100dvh - 224px);
+        gap:16px;
+    }
+    #tab-telemetry .page-title-section {
+        display:grid;
+        grid-template-columns:minmax(0,1fr) auto;
+        align-items:center;
+        gap:20px;
+        margin-bottom:0;
+        min-height:78px;
+    }
+    #tab-telemetry .page-main-desc {
+        max-width:65ch;
+        line-height:1.45;
+        margin-top:4px;
+    }
+    #tab-telemetry .page-eyebrow { margin-bottom:4px; }
+    #tab-telemetry .telemetry-main-grid {
+        grid-template-columns:minmax(0,1.9fr) minmax(340px,1fr);
+        gap:16px;
+        align-items:start;
+    }
+    #tab-telemetry .tel-col-left { gap:16px; }
+    #tab-telemetry .card-combined-hand {
+        height:var(--telemetry-frame-height);
+        grid-template-rows:minmax(0,1fr) auto;
+        flex-shrink:0;
+    }
+    #tab-telemetry .hand-3d-section {
+        min-height:0;
+        padding:16px 18px 12px;
+        gap:8px;
+    }
+    #tab-telemetry .hand-3d-header { margin-bottom:0; flex-shrink:0; }
+    #tab-telemetry .canvas-wrapper-clean {
+        height:auto;
+        flex:1;
+        min-height:0;
+    }
+    #tab-telemetry .cam-vertical-bar { top:54px; left:16px; }
+    #tab-telemetry .flex-activity-legend {
+        position:absolute;
+        right:18px;
+        bottom:12px;
+        margin:0;
+        width:170px;
+        flex-shrink:0;
+    }
+    #tab-telemetry .sensor-readings-section { padding:14px 18px; gap:12px; }
+    #tab-telemetry .sensor-channels-list { gap:14px 20px; }
+    #tab-telemetry .sensor-channel-row { min-height:38px; }
+    #tab-telemetry .sc-name { font-size:12px; }
+    #tab-telemetry .sc-subtext { font-size:11px; }
+    #tab-telemetry .tel-col-right {
+        display:grid;
+        height:var(--telemetry-frame-height);
+        grid-template-columns:minmax(0,1fr);
+        grid-template-rows:auto minmax(0,1fr);
+        gap:16px;
+    }
+    #tab-telemetry .card-movement-clf { padding:16px 18px; }
+    #tab-telemetry .classification-result { padding:14px 0; gap:14px; }
+    #tab-telemetry .classification-confidence { padding-top:12px; }
+    #tab-telemetry .classification-confidence-label { margin-bottom:8px; }
+    #tab-telemetry .classification-note { margin-top:10px; }
+    #tab-telemetry .card-live-graphs { padding:16px 18px; min-height:0; gap:12px; }
+    #tab-telemetry .card-live-graphs .card-header-clean { margin-bottom:0; flex-shrink:0; }
+    #tab-telemetry .mini-charts-2x2-grid {
+        flex:1;
+        min-height:0;
+        grid-template-rows:repeat(2,minmax(0,1fr));
+    }
+    #tab-telemetry .mini-chart-cell { min-height:0; min-width:0; }
+    #tab-telemetry .mcc-header { flex-wrap:wrap; gap:4px; }
+    #tab-telemetry .mcc-canvas-wrap { flex:1; min-height:0; height:auto; }
+    #tab-telemetry .mcc-canvas-wrap canvas { height:100% !important; }
+}
+@media(min-width:900px) and (min-height:500px) {
+    body:has(#tab-telemetry.active) .app-container {min-height:100dvh}
+    body:has(#tab-telemetry.active) .workspace-layout {height:calc(100dvh - 80px);min-height:0;flex:none}
+    body:has(#tab-telemetry.active) .clinical-sidebar {height:calc(100dvh - 80px)}
+    .main-content-area:has(#tab-telemetry.active) {padding:20px 24px;min-height:0}
+    #tab-telemetry.active {display:grid;height:100%;min-height:0;grid-template-rows:auto minmax(0,1fr);gap:14px}
+    #tab-telemetry .page-title-section {min-height:64px}
+    #tab-telemetry .telemetry-main-grid {height:100%;min-height:0;align-items:stretch;grid-template-columns:minmax(0,1.85fr) minmax(240px,1fr);gap:16px}
+    #tab-telemetry .tel-col-left {height:100%;min-height:0}
+    #tab-telemetry .card-combined-hand {height:100%;min-height:0;grid-template-columns:minmax(0,1fr) 160px;grid-template-rows:minmax(0,1fr)}
+    #tab-telemetry .hand-3d-section {min-height:0;border-bottom:0;border-right:1px solid #e1e8e3;padding:14px 16px 40px}
+    #tab-telemetry .hand-3d-header {flex-wrap:wrap;gap:4px 10px}
+    #tab-telemetry .sensor-readings-section {min-height:0;padding:14px 12px;gap:12px;justify-content:flex-start}
+    #tab-telemetry .sensor-readings-section .section-title-row {flex-wrap:wrap;gap:7px;flex-shrink:0}
+    #tab-telemetry .sensor-channels-list {flex:1;min-height:0;display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:repeat(8,minmax(0,1fr));gap:8px}
+    #tab-telemetry .sensor-channel-row {min-height:0}
+    #tab-telemetry .sc-label-row {gap:3px;flex-wrap:wrap}
+    #tab-telemetry .sc-name {font-size:11px}
+    #tab-telemetry .sc-val {font-size:12px}
+    #tab-telemetry .sc-subtext {font-size:10px;line-height:1.5}
+    #tab-telemetry .sc-bar-bg {margin-top:7px}
+    #tab-telemetry .tel-col-right {height:100%;min-height:0;grid-template-rows:auto minmax(0,1fr);gap:14px}
+    #tab-telemetry .card-movement-clf {padding:14px 16px}
+    #tab-telemetry .classification-result {padding:8px 0}
+    #tab-telemetry .classification-action {height:78px}
+    #tab-telemetry .classification-action img {height:76px;width:76px}
+    #tab-telemetry .classification-confidence {padding-top:9px}
+    #tab-telemetry .classification-note {margin-top:8px;font-size:10px}
+    #tab-telemetry .card-live-graphs {padding:14px 16px;gap:10px;min-height:0}
+    #tab-telemetry .mini-charts-2x2-grid {min-height:0;gap:8px}
+    #tab-telemetry .mcc-header {gap:4px}
+    #tab-telemetry .mcc-legend {font-size:9px}
+}
+@media(min-width:900px){#tab-games .rehab-activity.game-select-pill{height:clamp(280px,calc(100dvh - 320px),610px);min-height:280px}}
+
+@media(min-width:900px){#tab-telemetry .tel-col-right{grid-template-columns:minmax(0,1fr);min-width:0}#tab-telemetry .mini-chart-cell{min-width:0}#tab-telemetry .mcc-header{font-size:10px}}
+@media(min-width:900px){#tab-telemetry .card-live-graphs{height:100%;max-height:100%;box-sizing:border-box}}
+
+@media(min-width:900px) and (max-height:700px){
+ #tab-telemetry .sensor-channels-list{grid-template-rows:repeat(6,minmax(0,1fr)) minmax(48px,1.3fr) minmax(40px,1fr);gap:4px}
+ #tab-games .rehab-card-art{width:54px;height:54px;right:24px;bottom:64px}
+ #tab-games .rehab-card-copy{gap:8px}
+ #tab-games .rehab-card-copy strong{font-size:24px}
+}
+
+@media(min-width:900px) and (max-height:700px){
+ #tab-exercises .gp-exercise-card .gp-card-open{padding:10px 12px 4px;grid-template-columns:minmax(0,1fr) 46px;grid-template-rows:12px auto 1fr;column-gap:8px;row-gap:4px}
+ #tab-exercises .gp-card-open strong{font-size:14px;line-height:1.3;margin:0}
+ #tab-exercises .gp-card-open p{font-size:10px;line-height:1.4}
+ #tab-exercises .gp-card-open .gp-card-number{font-size:9px;line-height:12px}
+ #tab-exercises .gp-card-preview{width:46px;height:58px;align-self:start}
+ #tab-exercises .gp-exercise-card .gp-card-footer{flex-wrap:nowrap;padding:5px 12px 8px;gap:6px}
+ #tab-exercises .gp-card-footer .gp-card-last{font-size:8px;flex:1 1 auto;max-width:none}
+ #tab-exercises .gp-card-footer .gp-card-progress{font-size:9px;min-height:25px;padding:4px 7px;gap:4px}
+}
+@media(min-width:900px) and (max-width:1100px) and (max-height:700px){
+ #tab-exercises .gp-exercise-card .gp-card-open{grid-template-columns:minmax(0,1fr)}
+ #tab-exercises .gp-card-preview{display:none}
+}
+
+/* Readable previews and popup pagination. */
+
+@media(min-width:900px){
+ #tab-games .rehab-activity.game-select-pill{display:grid;grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto auto auto minmax(75px,1fr) auto;gap:9px}
+ #tab-games .rehab-card-copy{display:contents}
+ #tab-games .rehab-card-copy .rehab-card-best{position:static;grid-row:6;padding-top:12px;margin:0}
+ #tab-games .rehab-card-art{position:static;grid-row:5;justify-self:end;align-self:end;width:clamp(90px,8vw,130px);height:clamp(90px,15vh,135px);margin:0;opacity:1}
+ #tab-games .rehab-card-tag{padding-right:0}
+}
+@media(min-width:900px) and (max-height:700px){
+ .main-content-area:has(#tab-exercises.active[data-view="library"]),.main-content-area:has(#tab-games.active[data-stage="library"]){padding:16px 24px}
+ #tab-exercises .gp-page-header{margin-bottom:12px;padding:0}
+ #tab-exercises .gp-page-header .page-eyebrow,#tab-games .rehab-heading .page-eyebrow{display:none}
+ #tab-exercises .gp-page-header h2{font-size:25px;margin:0 0 4px}
+ #tab-exercises .gp-page-header p{font-size:13px;margin:0}
+ #tab-exercises[data-view="library"] .gp-exercises{height:calc(100dvh - 210px);min-height:0;gap:12px}
+ #tab-exercises .gp-exercise-card .gp-card-open{padding:12px 14px 4px;grid-template-columns:minmax(0,1fr) 72px;grid-template-rows:14px auto 1fr;column-gap:10px;row-gap:6px}
+ #tab-exercises .gp-card-open strong{font-size:16px;line-height:1.35}
+ #tab-exercises .gp-card-open p{font-size:12px;line-height:1.45}
+ #tab-exercises .gp-card-preview{display:block;width:72px;height:90px;align-self:center}
+ #tab-exercises .gp-card-footer .gp-card-last{font-size:10px}
+ #tab-exercises .gp-card-footer .gp-card-progress{font-size:11px;min-height:30px;padding:6px 9px}
+ #tab-games .rehab-heading{margin:0 0 12px}
+ #tab-games .rehab-heading h2{font-size:25px;line-height:1.3;margin:0}
+ #tab-games .rehab-heading p{font-size:13px;margin:5px 0 0}
+ #tab-games .rehab-section-label{margin:0 0 12px}
+ #tab-games .rehab-activity.game-select-pill{height:calc(100dvh - 245px);min-height:300px;padding:20px 22px;gap:8px}
+ #tab-games .rehab-card-copy strong{font-size:25px}
+ #tab-games .rehab-card-copy>span{font-size:13px}
+ #tab-games .rehab-card-art{width:95px;height:95px}
+}
+@media(min-width:900px) and (max-width:1100px) and (max-height:700px){
+ #tab-exercises .gp-exercise-card .gp-card-open{grid-template-columns:minmax(0,1fr) 56px;padding:10px 12px 3px;column-gap:6px;row-gap:4px}
+ #tab-exercises .gp-card-preview{width:56px;height:76px}
+ #tab-exercises .gp-card-open strong{font-size:15px}
+ #tab-exercises .gp-card-open p{font-size:11px}
+}
+
+
+@media(min-width:900px){
+ dialog.gp-dialog,#tab-games .game-instructions-dialog,.glove-personalisation{max-height:calc(100dvh - 24px);box-sizing:border-box}
+ #gpProgressDialog .gp-history-table-wrap{max-height:none;min-height:0;overflow:visible}
+ #gpProgressDialog .gp-history-table caption{display:none}
+ #gpProgressDialog .gp-history-table td,#gpProgressDialog .gp-history-table th{padding:5px 10px}
+ .gp-recent-pagination{display:flex;justify-content:flex-end;gap:8px;margin-top:8px}
+ .gp-recent-pagination button{padding:5px 12px;border:1px solid #ddd7bd;border-radius:6px;background:#fff;color:#6a6223;font:11px Poppins,Arial,sans-serif;cursor:pointer}
+ .gp-recent-pagination button:disabled{opacity:.4}
+}
+@media(min-width:760px) and (max-height:800px){
+ #tab-games .game-instructions-dialog{width:min(820px,calc(100vw - 48px));padding:36px 26px 18px}
+ #tab-games[data-stage="instructions"] .rehab-player-heading{padding:0 0 14px}
+ #tab-games[data-stage="instructions"] .rehab-player-heading h3{font-size:24px;margin-top:5px}
+ #tab-games[data-stage="instructions"] .game-preview{flex-basis:170px;width:170px}
+ #tab-games[data-stage="instructions"] .rehab-companion>.rehab-help{padding:16px 20px}
+ #tab-games[data-stage="instructions"] .rehab-help h3{margin-bottom:14px}
+ #tab-games[data-stage="instructions"] .rehab-help ol{gap:12px}
+ #tab-games[data-stage="instructions"] .rehab-help li p{font-size:13px}
+ #tab-games[data-stage="instructions"] .rehab-reassurance{padding:10px 12px;margin-top:12px}
+ #tab-games[data-stage="instructions"] .rehab-controls{padding-top:12px}
+ #tab-games[data-stage="instructions"] .dino-finger-setup{padding:10px 0}
+ #tab-games[data-stage="instructions"] .dino-finger-layout{margin-top:10px;gap:16px}
+ #tab-games[data-stage="instructions"] .dino-hand-diagram{max-width:180px}
+ #tab-games[data-stage="instructions"] .dino-finger-choice p{margin-top:8px}
+ #gpInstructions{padding:30px 26px 22px}
+ #gpInstructions h2{font-size:24px;margin:8px 0}
+ #gpInstructions ol{margin:14px 0}
+ #gpProgressDialog[open]{padding:22px 26px;max-height:calc(100dvh - 24px)}
+ #gpProgressDialog .gp-report-heading{padding-bottom:10px;margin-bottom:10px}
+ #gpProgressDialog .gp-report-heading h2{font-size:23px}
+ #gpProgressDialog .gp-progress-panel{margin-top:0}
+ #gpProgressDialog .gp-progress-stats{margin-bottom:10px}
+ #gpProgressDialog .gp-progress-stats strong{font-size:25px}
+ #gpProgressDialog .gp-chart-wrap{min-height:170px;padding:6px 10px 0}
+ #gpProgressDialog #gpDailyChart{min-height:130px}
+ #gpProgressDialog:has(details[open]) .gp-chart-wrap{min-height:130px}
+ #gpProgressDialog:has(details[open]) #gpDailyChart{min-height:90px}
+ #gpProgressDialog .gp-trend-summary{padding:8px 0;margin:0}
+ #modalHistory .history-header{padding:16px 22px 12px}
+ #modalHistory .history-header h2{font-size:23px}
+ #modalHistory .history-toolbar{padding-bottom:10px}
+ #modalHistory .data-table td{padding:10px 12px}
+ .glove-setup-header{padding:18px 26px 12px}
+ .glove-setup-header h2{font-size:24px;margin:4px 0}
+ .glove-setup-body{min-height:0;padding:16px 26px;gap:20px;grid-template-columns:230px minmax(0,1fr)}
+ .glove-setup-illustration{height:230px}
+ .glove-setup-illustration canvas{width:230px;height:230px;margin:0}
+ .glove-setup-instructions h3{font-size:22px}
+ .glove-setup-instructions p{line-height:1.6}
+ .glove-setup-hold{margin-top:12px;padding:10px 0}
+ .glove-setup-footer{padding:14px 26px}
+}
+@media(min-width:900px){#gpProgressDialog .gp-recent-sessions{flex-shrink:0;max-height:none;overflow:visible}#gpProgressDialog:has(details[open]) .gp-chart-wrap{min-height:110px}#gpProgressDialog:has(details[open]) #gpDailyChart{min-height:70px}}
+
+@media(min-width:900px){
+ #gpProgressDialog:has(details[open]) .gp-chart-wrap,#gpProgressDialog:has(details[open]) .gp-plot-heading,#gpProgressDialog:has(details[open]) .gp-trend-summary{display:none}
+ #gpProgressDialog .gp-recent-pagination{padding-bottom:8px}
+}
+
+/* Results and exercise-session fitting. */
+@media(min-width:900px) and (min-height:500px) {
+    body:has(#tab-exercises.active[data-view="session"]) .app-container {min-height:calc(100dvh - 44px)}
+    body:has(#tab-exercises.active[data-view="session"]) .workspace-layout {height:calc(100dvh - 80px);min-height:0;flex:none}
+    body:has(#tab-exercises.active[data-view="session"]) .clinical-sidebar {height:calc(100dvh - 80px)}
+    .main-content-area:has(#tab-exercises.active[data-view="session"]) {padding:20px 32px}
+    #tab-exercises.active[data-view="session"] {display:grid;height:100%;min-height:0;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto auto;gap:10px 18px}
+    #tab-exercises[data-view="session"] .gp-session-heading {grid-column:1;grid-row:1;padding:0}
+    #tab-exercises[data-view="session"] .gp-session-heading h3 {font-size:20px}
+    #tab-exercises[data-view="session"] .gp-session-heading p {font-size:12px;margin-top:4px}
+    #tab-exercises[data-view="session"] .gp-session-toolbar {grid-column:2;grid-row:1;justify-content:flex-end;align-items:center}
+    #tab-exercises[data-view="session"] .gp-session-toolbar .btn {font-size:12px;min-height:40px;padding:8px 14px}
+    #tab-exercises[data-view="session"] .gp-session-console {grid-column:1/-1;grid-row:2;padding:12px 20px}
+    #tab-exercises[data-view="session"] .gp-session-metrics strong {font-size:23px;margin-top:2px}
+    #tab-exercises[data-view="session"] .gp-comparison {grid-column:1/-1;grid-row:3;min-height:0;height:100%}
+    #tab-exercises[data-view="session"] .gp-panel {display:flex;flex-direction:column;min-height:0}
+    #tab-exercises[data-view="session"] .gp-panel header {padding:12px 16px;flex-shrink:0}
+    #tab-exercises[data-view="session"] .gp-video-wrap,
+    #tab-exercises[data-view="session"] .gp-hand-wrap {flex:1;height:auto;min-height:0}
+    #tab-exercises[data-view="session"] .gp-panel-caption {min-height:0;padding:9px 16px;flex-shrink:0;font-size:12px}
+    #tab-exercises[data-view="session"] .gp-feedback {grid-column:1/-1;grid-row:4;font-size:13px}
+    #tab-exercises[data-view="session"] .gp-feedback:empty {display:none}
+    #tab-exercises[data-view="session"] .gp-result {grid-column:1/-1;grid-row:5;padding:12px 18px;gap:16px}
+    #tab-exercises[data-view="session"] .gp-result h3 {font-size:17px}
+    #tab-exercises[data-view="session"] .gp-result p {margin-top:3px;font-size:12px}
+}
+
+/* Session panels consume the remaining viewport, including former empty rows. */
+@media(min-width:760px){
+ body:has(#tab-exercises.active[data-view="session"]){overflow:hidden}
+ body:has(#tab-exercises.active[data-view="session"]) .app-container{height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+ body:has(#tab-exercises.active[data-view="session"]) .workspace-layout{flex:1 1 0;height:auto;min-height:0;overflow:hidden}
+ .main-content-area:has(#tab-exercises.active[data-view="session"]){height:100%;min-height:0;box-sizing:border-box;overflow:hidden;padding:clamp(10px,1.8dvh,20px) clamp(16px,2vw,32px)}
+ #tab-exercises.active[data-view="session"]{height:100%;min-height:0;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr);gap:clamp(8px,1.3dvh,14px)}
+ #tab-exercises[data-view="session"] .gp-comparison{height:100%;min-height:0;grid-column:1/-1;grid-row:3;grid-template-columns:repeat(2,minmax(0,1fr))}
+ #tab-exercises[data-view="session"] .gp-panel{height:100%;min-height:0;display:flex;flex-direction:column}
+ #tab-exercises[data-view="session"] :is(.gp-video-wrap,.gp-hand-wrap){flex:1 1 0;height:auto;min-height:0}
+ #tab-exercises[data-view="session"] .gp-panel header{flex-shrink:0;padding:clamp(10px,1.6dvh,18px) 16px}
+ #tab-exercises[data-view="session"] .gp-panel-caption{flex-shrink:0}
+ #tab-exercises.active[data-view="session"] .gp-feedback{position:absolute;bottom:0;left:0;right:0;min-height:0;height:auto;pointer-events:none;background:var(--bg-app,#f7f5ed)}
+ #tab-exercises.active[data-view="session"] .gp-feedback:empty{display:none}
+ #tab-exercises[data-view="session"] .gp-result[hidden]{display:none}
+ #tab-exercises.active[data-view="session"]{position:relative}
+ #tab-exercises[data-view="session"]:has(.gp-feedback:not(:empty)){padding-bottom:30px}
+}
+@media(min-width:900px){
+ body:has(#tab-games.active[data-stage="results"]) .workspace-layout{height:calc(100dvh - 80px);min-height:0;flex:none}
+ .main-content-area:has(#tab-games.active[data-stage="results"]){height:100%;min-height:0;padding:clamp(12px,2vh,26px) 24px;box-sizing:border-box}
+ #tab-games.active[data-stage="results"]{display:flex;align-items:center;justify-content:center;height:100%;min-height:0}
+ #tab-games[data-stage="results"] .game-results{box-sizing:border-box;max-width:1000px;width:100%;max-height:100%;margin:0 auto;padding:clamp(20px,4vh,48px) clamp(22px,3vw,48px)}
+ #tab-games .game-results h2{font-size:clamp(23px,2.2vw,32px);line-height:1.3;margin:clamp(8px,1.5vh,16px) 0}
+ #tab-games .game-results>p{margin:clamp(8px,1.5vh,16px) 0;font-size:14px}
+ #tab-games .game-result-stats{margin:clamp(14px,3vh,30px) 0;padding:clamp(14px,3vh,25px) 12px;gap:12px}
+ #tab-games .game-result-stats span{font-size:12px;margin-bottom:10px}
+ #tab-games .game-result-stats strong{font-size:clamp(26px,3vw,36px)}
+ #tab-games .game-result-actions{margin-top:clamp(12px,2.5vh,28px);gap:14px}
+ #tab-games .game-result-actions .btn{min-height:44px;min-width:160px;font-size:15px}
+}
+@media(min-width:900px) and (max-height:700px){
+ .main-content-area:has(#tab-exercises.active[data-view="session"]){padding:12px 24px}
+ #tab-exercises[data-view="session"] .gp-session-heading h3{font-size:18px}
+ #tab-exercises[data-view="session"] .gp-panel header{padding:10px 12px}
+ #tab-exercises[data-view="session"] .gp-panel h3{font-size:13px}
+ #tab-exercises[data-view="session"] .gp-session-console{padding:10px 14px}
+ #tab-exercises[data-view="session"] .gp-session-metrics span{font-size:11px}
+ #tab-exercises[data-view="session"] .gp-session-metrics strong{font-size:22px}
+ #tab-exercises[data-view="session"] .gp-session-actions .btn{min-height:40px;padding:8px 14px;font-size:13px}
+}
+
+/* Close controls occupy a reserved band above the popup content. */
+#tab-games #gameInstructionsDialog{padding-top:56px!important;position:fixed}
+#tab-games #gameInstructionsDialog .game-popup-close{top:12px;right:16px;width:32px;height:32px;min-height:32px;padding:0;margin:0;z-index:5}
+.gp-dialog h2{padding-right:32px}
+
+@media(min-width:760px) and (max-width:899px){
+ #gpProgressDialog .gp-history-table-wrap,#gpProgressDialog .gp-recent-sessions{max-height:none;overflow:visible}
+ #gpProgressDialog:has(details[open]) .gp-chart-wrap,#gpProgressDialog:has(details[open]) .gp-plot-heading,#gpProgressDialog:has(details[open]) .gp-trend-summary{display:none}
+ #modalHistory .data-table{min-width:0}
+ #modalHistory .data-table th{white-space:normal;padding:8px 6px;font-size:9px}
+ #modalHistory .data-table td{padding:8px 6px;font-size:10px}
+ #modalHistory .history-report-actions{flex-wrap:wrap;gap:4px}
+ #modalHistory .history-report-actions a{min-width:35px;height:26px}
+}
+@media(min-width:760px) and (max-width:899px) and (max-height:700px){#tab-games[data-stage="instructions"] .game-preview{flex-basis:140px;width:140px}#tab-games[data-stage="instructions"] .rehab-help ol{gap:8px}#tab-games[data-stage="instructions"] .rehab-help h3{margin-bottom:10px}#tab-games[data-stage="instructions"] .rehab-reassurance{margin-top:8px;padding:8px 10px}#tab-games[data-stage="instructions"] .rehab-controls{padding-top:8px}#tab-games[data-stage="instructions"] .rehab-main-actions .btn{min-height:42px;padding:9px 15px}}
+
+/* Reserve session controls and feedback space to avoid Start/Pause layout shifts. */
+
+@media(min-width:900px){
+ #tab-exercises[data-view="session"] .gp-feedback,#tab-exercises[data-view="session"] .gp-feedback:empty{display:block;min-height:40px;height:40px;box-sizing:border-box;font-size:12px;line-height:18px;margin:0}
+ #tab-exercises[data-view="session"] .gp-session-actions{display:grid;grid-template-columns:1fr 1fr;width:270px;min-width:270px;gap:10px;align-items:stretch;min-height:44px}
+ #tab-exercises[data-view="session"] #gpStart{grid-column:1/-1}
+ #tab-exercises[data-view="session"] .gp-session-actions .btn{min-height:44px;font-size:13px;padding:8px 12px;white-space:nowrap}
+ #tab-exercises[data-view="session"] .gp-session-metrics span{min-height:2.8em;line-height:1.4}
+ #tab-exercises[data-view="session"] .gp-panel-caption{height:50px;min-height:50px;box-sizing:border-box;font-size:12px;line-height:16px;padding:8px 12px}
+}

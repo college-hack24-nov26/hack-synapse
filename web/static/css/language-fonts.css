@@ -1,0 +1,13 @@
+@font-face{
+ font-family:'NeuroGlove Devanagari';src:url('/static/fonts/NotoSansDevanagari.ttf') format('truetype');
+ font-weight:100 900;font-style:normal;font-display:swap;
+}
+html:is([lang="mr"],[lang="hi"]) :is(body,h1,h2,h3,h4,h5,p,span,label,button,input,select,option,small,strong,th,td,a,summary,text),
+html:is([lang="mr"],[lang="hi"]) .clinical-sidebar .top-nav-tab,
+html:is([lang="mr"],[lang="hi"]) .clinical-sidebar .top-nav-tab>span{
+ font-family:'NeuroGlove Devanagari','Nirmala UI',sans-serif!important;
+ letter-spacing:normal!important;
+}
+html:is([lang="mr"],[lang="hi"]) :is(p,label,.top-nav-tab,.gp-card-open strong,.gp-card-open p){line-height:1.65!important}
+html:is([lang="mr"],[lang="hi"]) .gp-card-open strong{font-size:clamp(17px,1.25vw,23px)!important}
+html:is([lang="mr"],[lang="hi"]) .gp-card-open p{font-size:clamp(12px,.95vw,15px)!important}

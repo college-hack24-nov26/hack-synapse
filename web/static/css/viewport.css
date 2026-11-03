@@ -1,0 +1,89 @@
+/* Desktop workspaces share the actual remaining height below the header. */
+/* Popup scroll areas grow naturally and scroll only when they exceed the viewport. */
+dialog,.modal-window{box-sizing:border-box;max-height:calc(100dvh - 28px)!important;overscroll-behavior:contain}
+.modal-backdrop{padding:14px!important;box-sizing:border-box;overflow:hidden}
+.modal-window{display:flex;flex-direction:column;overflow:hidden}
+.modal-window :is(.modal-header,.modal-footer,.history-toolbar){flex-shrink:0}
+.modal-window .modal-body{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+#modalHistory .history-window{height:auto;max-height:calc(100dvh - 28px)}
+#modalHistory .history-body{overflow:auto;min-height:0}
+#tab-games #gameInstructionsDialog[open]{display:flex;flex-direction:column;padding:44px clamp(18px,2vw,30px) 20px;overflow:hidden}
+#gameInstructionsDialog #gameWorkspace{min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin;width:100%}
+#tab-games #gameInstructionsDialog .game-popup-close{flex-shrink:0;z-index:10}
+dialog.gp-dialog{overflow:auto;scrollbar-width:thin;padding:22px clamp(20px,2.5vw,34px) 24px;scroll-padding-top:50px}
+dialog.gp-dialog .gp-dialog-close{position:sticky;top:0;float:right;margin:0 -10px 0 8px;z-index:10;background:#fff;box-shadow:0 0 0 5px #fff}
+dialog.glove-personalisation[open]{display:flex;flex-direction:column;overflow:hidden}
+.glove-personalisation :is(.glove-setup-header,.glove-setup-timeline,.glove-setup-footer){flex-shrink:0}
+.glove-personalisation .glove-setup-body{flex:1;min-height:0;overflow:auto;overscroll-behavior:contain;scrollbar-width:thin}
+@media(max-height:800px){
+  .gp-dialog h2{font-size:23px;margin:8px 0}
+  .gp-dialog ol{margin-top:12px;margin-bottom:16px}
+  .gp-progress-dialog .gp-chart-wrap{max-height:40dvh;min-height:180px}
+  .glove-setup-header{padding:16px 26px 12px}
+  .glove-setup-header h2{font-size:23px}
+  .glove-personalisation .glove-setup-body{padding:16px 26px;gap:22px;grid-template-columns:minmax(180px,240px) minmax(0,1fr)}
+  .glove-personalisation .glove-setup-illustration{height:clamp(170px,30dvh,260px)}
+  .glove-personalisation .glove-setup-illustration canvas{height:100%;width:100%;margin:0;object-fit:contain}
+  .glove-setup-footer{padding:14px 26px}
+}
+@media (min-width:760px) {
+  body:has(:is(#tab-telemetry,#tab-exercises,#tab-games).active){margin:0;overflow:hidden}
+  body:has(:is(#tab-telemetry,#tab-exercises,#tab-games).active) .app-container{height:100dvh!important;min-height:0!important;display:flex;flex-direction:column;box-sizing:border-box;overflow:hidden}
+  body:has(:is(#tab-telemetry,#tab-exercises,#tab-games).active) .app-header{flex:0 0 auto;height:clamp(60px,9dvh,80px);min-height:0;box-sizing:border-box}
+  body:has(:is(#tab-telemetry,#tab-exercises,#tab-games).active) .workspace-layout{flex:1 1 0!important;height:auto!important;min-height:0!important;overflow:hidden}
+  body:has(:is(#tab-telemetry,#tab-exercises,#tab-games).active) .clinical-sidebar{height:100%!important;min-height:0;box-sizing:border-box;overflow:hidden}
+  .main-content-area:has(:is(#tab-telemetry,#tab-exercises,#tab-games).active){height:100%;min-height:0;padding:clamp(10px,2dvh,24px) clamp(14px,2vw,32px)!important;box-sizing:border-box;overflow:hidden}
+  :is(#tab-telemetry,#tab-exercises,#tab-games).active{height:100%!important;min-height:0!important;box-sizing:border-box}
+  #tab-telemetry.active{display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(8px,1.5dvh,18px)}
+  #tab-telemetry .page-title-section{min-height:0;margin:0}
+  #tab-telemetry .telemetry-main-grid{height:100%!important;min-height:0;grid-template-columns:minmax(0,1.8fr) minmax(270px,1fr);gap:12px}
+  #tab-telemetry :is(.tel-col-left,.tel-col-right,.card-combined-hand,.hand-3d-section,.canvas-wrapper-clean,.card-live-graphs,.mini-charts-2x2-grid,.mini-chart-cell,.mcc-canvas-wrap){min-height:0!important}
+  #tab-telemetry .card-combined-hand{height:100%!important;grid-template-columns:minmax(0,1fr) clamp(145px,15vw,205px);grid-template-rows:minmax(0,1fr)}
+  #tab-telemetry .hand-3d-section{padding:12px 12px 38px}
+  #tab-telemetry .hand-3d-section{display:flex;flex-direction:column}
+  #tab-telemetry .canvas-wrapper-clean{height:auto!important;flex:1}
+  #tab-telemetry .sensor-readings-section{padding:12px;gap:8px;min-height:0}
+  #tab-telemetry .sensor-channels-list{display:grid;grid-template-columns:1fr;grid-template-rows:repeat(8,minmax(0,1fr));gap:clamp(3px,1dvh,10px);min-height:0;flex:1}
+  #tab-telemetry .sensor-channel-row{min-height:0}
+  #tab-telemetry .tel-col-right{display:grid;grid-template-rows:auto minmax(0,1fr);gap:12px;height:100%}
+  #tab-telemetry .mini-charts-2x2-grid{grid-template-rows:repeat(2,minmax(0,1fr));flex:1}
+  #tab-exercises.active[data-view="library"]{display:grid;grid-template-rows:auto minmax(0,1fr);gap:clamp(10px,2dvh,22px)}
+  #tab-exercises .gp-page-header{padding:0;margin:0}
+  #tab-exercises[data-view="library"] .gp-exercises{height:100%!important;min-height:0!important;grid-template-rows:repeat(2,minmax(0,1fr));gap:clamp(10px,1.8dvh,22px)}
+  #tab-exercises .gp-exercise-card{min-height:0}
+  #tab-exercises.active[data-view="session"]{display:grid;grid-template-columns:1fr 1fr;grid-template-rows:auto auto minmax(0,1fr) auto auto;gap:8px 14px}
+  #tab-exercises[data-view="session"] .gp-session-heading{grid-column:1;grid-row:1}
+  #tab-exercises[data-view="session"] .gp-session-toolbar{grid-column:2;grid-row:1}
+  #tab-exercises[data-view="session"] .gp-session-console{grid-column:1/-1;grid-row:2}
+  #tab-exercises[data-view="session"] .gp-comparison{grid-column:1/-1;grid-row:3}
+  #tab-exercises[data-view="session"] .gp-feedback{grid-column:1/-1;grid-row:4}
+  #tab-exercises[data-view="session"] .gp-result{grid-column:1/-1;grid-row:5}
+  #tab-exercises[data-view="session"] .gp-comparison{min-height:0;height:100%}
+  #tab-exercises[data-view="session"] .gp-panel{display:flex;flex-direction:column;min-height:0}
+  #tab-exercises[data-view="session"] :is(.gp-video-wrap,.gp-hand-wrap){height:auto;min-height:0;flex:1}
+  #tab-games.active[data-stage="library"]{display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:clamp(8px,1.8dvh,20px)}
+  #tab-games[data-stage="library"] :is(.rehab-heading,.rehab-section-label){margin:0;padding-top:0;padding-bottom:0}
+  #tab-games[data-stage="library"] .rehab-activities{height:100%;min-height:0;width:100%;max-width:none;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:minmax(0,1fr);gap:18px;margin:0}
+  #tab-games[data-stage="library"] .rehab-activity{height:100%;min-height:0!important;padding:clamp(18px,3dvh,36px) clamp(16px,2vw,30px);box-sizing:border-box}
+  #tab-games[data-stage="library"] .rehab-card-copy{height:100%;min-height:0;max-width:100%;display:flex;flex-direction:column}
+  #tab-games[data-stage="library"] .rehab-card-best{margin-top:auto}
+  #tab-games[data-stage="library"] .rehab-card-art{width:clamp(70px,8vw,120px);height:clamp(75px,14dvh,125px);bottom:clamp(80px,12dvh,120px);right:24px}
+  #tab-games.active[data-stage="playing"]{height:100dvh!important}
+}
+@media(min-width:760px) and (max-height:760px){
+  :is(#tab-telemetry,#tab-exercises,#tab-games) :is(.page-main-heading,.gp-page-header h2,.rehab-heading h2){font-size:24px;margin-bottom:4px}
+  :is(#tab-telemetry,#tab-exercises,#tab-games) :is(.page-main-desc,.gp-page-header p,.rehab-heading p){font-size:12px;margin-top:4px}
+  #tab-telemetry .card-movement-clf{padding:10px 14px}
+  #tab-telemetry .classification-result{padding:4px 0}
+  #tab-telemetry .classification-action,#tab-telemetry .classification-action img{height:56px}
+  #tab-telemetry .card-live-graphs{padding:10px;gap:6px}
+  #tab-telemetry .sensor-channels-list{gap:3px}
+  #tab-telemetry .sc-bar-bg{margin-top:3px;height:3px}
+  #tab-telemetry :is(.sc-name,.sc-subtext){font-size:10px;line-height:1.3}
+  #tab-telemetry .cam-vertical-bar button{min-height:30px;padding:7px 10px}
+  #tab-exercises .gp-page-header .page-eyebrow,#tab-games .rehab-heading .page-eyebrow{display:none}
+  #tab-exercises .gp-exercise-card .gp-card-open{padding:12px 18px 6px;row-gap:5px;grid-template-rows:18px auto 1fr}
+  #tab-exercises .gp-exercise-card .gp-card-footer{padding:6px 16px 10px;min-height:38px}
+  #tab-games[data-stage="library"] .rehab-card-copy strong{font-size:clamp(21px,2vw,28px)}
+  #tab-games[data-stage="library"] .rehab-card-art{bottom:74px;height:75px}
+}

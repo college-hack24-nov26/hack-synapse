@@ -1,0 +1,22 @@
+<section id="tab-prediction" class="dashboard-tab-content prediction-workspace" aria-labelledby="predictionTitle">
+  <header class="prediction-hero">
+    <div class="prediction-title-block">
+      <span class="prediction-kicker">PROGRESS OUTLOOK</span>
+      <h2 id="predictionTitle">Practice prediction</h2>
+      <p>See how your recent practice is moving toward your selected goal.</p>
+    </div>
+    <div class="prediction-filters" aria-label="Prediction controls">
+      <label class="prediction-select-field"><span>Exercise</span><select id="predictionExercise"><option value="grasp_release">Hand Opening &amp; Closing (Finger flexors &amp; extensors)</option><option value="individual_fingers">Individual Finger Movement (Lumbricals &amp; interossei)</option><option value="thumb_opposition">Thumb Opposition (Opponens pollicis)</option><option value="wrist_flexion">Wrist Flexion &amp; Extension (Wrist flexors &amp; extensors)</option><option value="grip_pressure">Grip &amp; Release Pressure (Finger flexors)</option><option value="forearm_rotation">Forearm Rotation (Pronator teres &amp; supinator)</option></select></label>
+      <label class="prediction-select-field prediction-goal-field"><span>Practice goal</span><select id="predictionGoal"><option value="70">70% achievement</option><option value="80" selected>80% achievement</option><option value="90">90% achievement</option></select></label>
+    </div>
+  </header>
+  <div class="prediction-summary">
+    <article class="prediction-outlook"><div class="prediction-outlook-copy"><span class="prediction-card-label">ESTIMATED TIME TO GOAL</span><h3 id="predictionEstimate">Loading your history…</h3><p id="predictionReason" role="status"></p></div><div class="prediction-goal-ring" id="predictionGoalRing" aria-hidden="true"><span id="predictionGoalValue">80%</span><small>goal</small></div></article>
+    <article class="prediction-number"><span class="prediction-stat-icon" aria-hidden="true">↗</span><div><span>Latest achievement</span><strong id="predictionLatest">—</strong><small>Most recent practice day</small></div></article>
+    <article class="prediction-number"><span class="prediction-stat-icon" aria-hidden="true">≈</span><div><span>Weekly pace</span><strong id="predictionTrend">—</strong><small>Percentage points / week</small></div></article>
+  </div>
+  <section class="prediction-chart-panel" aria-labelledby="predictionChartTitle">
+    <header class="prediction-chart-header"><div><span class="prediction-card-label">ACHIEVEMENT OVER TIME</span><h3 id="predictionChartTitle">Practice trend</h3></div><div class="prediction-legend" aria-label="Chart legend"><span><i class="legend-line observed"></i>Recorded</span><span><i class="legend-line projected"></i>Projected</span><span><i class="legend-band"></i>Expected range</span></div></header>
+    <div class="prediction-chart-wrap"><svg id="predictionChart" viewBox="0 0 1000 360" preserveAspectRatio="none" role="img" aria-label="Recorded practice achievement and projected path to goal"></svg><div id="predictionTooltip" class="prediction-tooltip" role="status" hidden></div></div>
+  </section>
+</section>

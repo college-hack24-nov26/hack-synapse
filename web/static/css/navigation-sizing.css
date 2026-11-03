@@ -1,0 +1,21 @@
+/* Shared across every tab: 80px normally, with a gentle 72px lower bound. */
+:root { --app-nav-height:clamp(72px,calc(64px + 2dvh),80px); }
+body .app-container .app-header {
+    height:var(--app-nav-height)!important;
+    min-height:var(--app-nav-height)!important;
+    flex:0 0 var(--app-nav-height)!important;
+    box-sizing:border-box;
+}
+body .clinical-sidebar {
+    top:var(--app-nav-height)!important;
+    height:calc(100dvh - var(--app-nav-height))!important;
+    box-sizing:border-box;
+}
+.sidebar-scrim { top:var(--app-nav-height)!important; }
+@media(min-width:760px) {
+    body:has(:is(#tab-telemetry,#tab-exercises,#tab-games,#tab-prediction).active) .workspace-layout {
+        height:calc(100dvh - var(--app-nav-height))!important;
+        min-height:0!important;
+        flex:0 0 calc(100dvh - var(--app-nav-height))!important;
+    }
+}

@@ -1,0 +1,327 @@
+/* Patient activity workspace. Scoped to avoid changing the approved hand dashboard. */
+#tab-games.active { display:block; }
+#tab-games { --game-ink:#294339; --game-muted:#60746a; --game-line:#dce5de; }
+#tab-games [hidden] { display:none!important; }
+.rehab-heading { display:flex; justify-content:space-between; gap:24px; align-items:center; margin-bottom:30px; }
+.rehab-heading h2 { font:500 27px/1.4 'Poppins',Arial,sans-serif; letter-spacing:-.8px; color:var(--game-ink); }
+.rehab-heading p { color:var(--game-muted); font-size:14px; margin-top:8px; }
+.rehab-session-note { max-width:150px; font-size:12px; line-height:1.7; color:#718376; border-left:2px solid #c9d9cd; padding-left:16px; }
+.rehab-section-label { display:flex; align-items:center; gap:10px; margin-bottom:14px; }
+.rehab-section-label>span { font:12px Arial,sans-serif; color:#6c8774; }
+.rehab-section-label h3 { font:500 14px 'Poppins',Arial,sans-serif; color:#355343; }
+.rehab-section-label p { font:12px Arial,sans-serif; margin-left:auto; color:#6d7e72; }
+.rehab-activities { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:16px; margin-bottom:30px; }
+#tab-games .game-select-pill.rehab-activity { position:relative; display:block; min-width:0; width:100%; min-height:180px; padding:22px 20px; text-align:left; background:#fff; border:1px solid #dce5de; border-radius:12px; color:var(--game-ink); box-shadow:none; white-space:normal; cursor:pointer; transition:border-color .15s,background .15s; }
+#tab-games .game-select-pill.rehab-activity:hover:not(:disabled) { border-color:#84aa92; background:#fafcf9; }
+#tab-games .game-select-pill.rehab-activity.active { background:#edf5ee; border:1px solid #7a9e84; box-shadow:inset 0 0 0 1px #7a9e84; }
+#tab-games .game-select-pill.rehab-activity:disabled { cursor:default; }
+.rehab-card-copy { display:flex; flex-direction:column; gap:7px; position:relative; z-index:1; max-width:72%; }
+.rehab-card-kicker { font:500 9px 'Poppins',Arial,sans-serif; letter-spacing:1px; color:#607b69; }
+.rehab-card-copy strong { font:500 21px 'Poppins',Arial,sans-serif; letter-spacing:-.5px; }
+.rehab-card-copy>span:not(.rehab-card-kicker) { font:12px/1.6 Arial,sans-serif; color:#607266; }
+.rehab-card-copy .rehab-card-tag { margin-top:7px; font-size:10px!important; color:#4b6d55!important; }
+.rehab-card-art { position:absolute; right:5px; bottom:16px; width:98px; height:100px; opacity:.88; }
+.rehab-card-selection { display:none; position:absolute; right:12px; top:12px; font:10px Arial,sans-serif; color:#47734f; }
+.rehab-activity.active .rehab-card-selection { display:block; }
+.rehab-workspace { display:grid; grid-template-columns:minmax(0,1fr) 294px; gap:22px; align-items:start; }
+.rehab-player { overflow:hidden; border:1px solid var(--game-line); background:#fff; border-radius:13px; }
+.rehab-player-heading { display:flex; align-items:center; justify-content:space-between; gap:16px; padding:22px 24px 18px; }
+.rehab-small-label { font:500 9px 'Poppins',Arial,sans-serif; letter-spacing:1.5px; color:#6b8371; display:block; }
+.rehab-player-heading h3 { font:500 23px 'Poppins',Arial,sans-serif; letter-spacing:-.6px; color:var(--game-ink); margin-top:4px; }
+.rehab-input-badge { font:11px Arial,sans-serif; color:#56735e; padding:8px 11px; background:#f0f5f0; border:1px solid #e4ece3; border-radius:5px; max-width:230px; line-height:1.5; }
+.rehab-prompt { display:flex; gap:10px; align-items:center; background:#f5f8f2; padding:15px 24px; color:#405e42; border-top:1px solid #e9eee6; border-bottom:1px solid #e1e8dc; min-height:54px; }
+.rehab-prompt-dot { width:7px; height:7px; background:#6e9674; border-radius:50%; flex-shrink:0; }
+#tab-games #gameMovementPrompt { font:500 14px/1.6 'Poppins',Arial,sans-serif; color:#405e42; }
+#tab-games #gameCanvas { width:100%; height:auto; max-width:none; max-height:none; display:block; border-radius:0; background:#f1f5ed; aspect-ratio:920/520; }
+.rehab-controls { padding:20px 24px; display:flex; align-items:center; justify-content:space-between; gap:15px; border-top:1px solid #e2e8dd; }
+.rehab-main-actions { display:flex; flex-wrap:wrap; gap:12px; }
+#tab-games .rehab-main-actions .btn { min-height:54px; padding:14px 24px; font-size:16px; font-weight:600; min-width:160px; border-radius:8px; }
+#tab-games .rehab-main-actions .btn-primary { background:#286c50; border-color:#286c50; }
+#tab-games .game-status-pill { border:0; background:transparent; color:#697d6b; padding:0; text-transform:none; font:11px/1.6 Arial,sans-serif; text-align:right; max-width:125px; }
+#tab-games .game-status-pill.paused { color:#866832; }
+.rehab-metrics { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); padding:20px 24px; background:#fafbf8; border-top:1px solid #e8ede5; gap:18px; }
+.rehab-metrics>div+div { border-left:1px solid #e2e9df; padding-left:22px; }
+.rehab-metrics span { font:11px Arial,sans-serif; color:#6a7b6d; display:block; margin-bottom:6px; }
+.rehab-metrics strong { font:500 24px 'Poppins',Arial,sans-serif; font-variant-numeric:tabular-nums; color:#35583f; }
+.rehab-companion { display:flex; flex-direction:column; gap:16px; }
+.rehab-help,.rehab-feedback,.rehab-input-settings,.rehab-adjustments { border:1px solid var(--game-line); background:#fff; border-radius:11px; padding:22px; }
+.rehab-help h3 { font:500 17px 'Poppins',Arial,sans-serif; color:#35533f; margin-top:8px; margin-bottom:22px; }
+.rehab-help ol { display:flex; flex-direction:column; gap:22px; list-style:none; padding:0; }
+.rehab-help li { display:flex; gap:11px; }
+.rehab-help li>span { display:grid; place-items:center; width:27px; height:27px; border:1px solid #d9e5d8; background:#f2f6ef; border-radius:50%; font:12px Arial,sans-serif; color:#5d7a58; flex-shrink:0; }
+.rehab-help li strong { font:600 13px/1.6 Arial,sans-serif; color:#34523b; }
+.rehab-help li p { font:13px/1.65 Arial,sans-serif; margin-top:5px; color:#657864; }
+.rehab-reassurance { padding-top:18px; margin-top:20px; border-top:1px solid #e8eee3; color:#657961; font:12px/1.8 Arial,sans-serif; }
+#tab-games #btnZeroWrist { margin-top:15px; width:100%; font-size:12px; min-height:44px; }
+.rehab-reading { display:flex; justify-content:space-between; align-items:baseline; margin-top:14px; gap:12px; }
+.rehab-reading>span { font:13px Arial,sans-serif; color:#4d674f; }
+.rehab-reading>strong { font:500 23px 'Poppins',Arial,sans-serif; color:#477953; }
+.rehab-feedback .bf-bar { margin:12px 0; height:8px; }
+.rehab-feedback p { font:12px/1.6 Arial,sans-serif; color:#657b60; }
+.rehab-contact { border-top:1px solid #e5ebe1; padding-top:12px; margin-top:13px; font:11px Arial,sans-serif; color:#6b7e65; display:flex; justify-content:space-between; }
+.rehab-input-options { display:flex; gap:4px; padding:4px; border:1px solid #dfe7db; border-radius:7px; margin-top:14px; }
+.rehab-input-options button { flex:1; border:0; padding:11px 5px; min-height:42px; border-radius:4px; background:transparent; color:#627560; font:12px Arial,sans-serif; cursor:pointer; }
+.rehab-input-options button.active { background:#edf3e8; color:#375d3e; font-weight:600; }
+.rehab-input-settings p { font:12px/1.7 Arial,sans-serif; color:#697d63; margin-top:10px; }
+#gameManualControls>div { display:flex; gap:8px; margin-top:14px; }
+#gameManualControls .btn { flex:1; min-height:49px; font-size:13px; padding:10px; }
+#manualDinoControl { width:100%; margin-top:14px; }
+.rehab-adjustments { padding:0; }
+.rehab-adjustments summary { display:flex; justify-content:space-between; gap:12px; list-style:none; cursor:pointer; padding:20px 22px; font:500 12px 'Poppins',Arial,sans-serif; color:#4e6950; min-height:54px; }
+.rehab-adjustments summary::-webkit-details-marker { display:none; }
+.rehab-adjustments[open] summary { border-bottom:1px solid #e6ece2; }
+.rehab-adjustment-fields { display:flex; flex-direction:column; gap:20px; padding:20px 22px; }
+.rehab-adjustment-fields label { display:flex; flex-direction:column; gap:10px; font:12px Arial,sans-serif; color:#506b50; }
+.rehab-range { display:flex; align-items:center; gap:10px; }
+.rehab-range input { width:100%; accent-color:#5c8b61; min-height:28px; }
+.rehab-range output { min-width:34px; }
+.rehab-adjustment-fields select { padding:10px 8px; min-height:43px; border:1px solid #d8e3d3; border-radius:5px; color:#486645; background:#fff; width:100%; font:12px Arial,sans-serif; }
+.rehab-adjustment-fields .rehab-checkbox { flex-direction:row; align-items:center; line-height:1.6; }
+.rehab-checkbox input { width:19px; height:19px; flex-shrink:0; accent-color:#5c8b61; }
+.rehab-completion { padding:22px 24px; background:#edf5e8; border-top:1px solid #dce7d5; color:#365f39; }
+.rehab-completion strong { display:block; font:500 19px 'Poppins',Arial,sans-serif; margin-bottom:8px; }
+.rehab-completion span { font:14px Arial,sans-serif; }
+.rehab-bottom-note { font:12px/1.7 Arial,sans-serif; color:#74846e; margin-top:22px; }
+@media(min-width:1650px) { .rehab-workspace { grid-template-columns:minmax(0,1fr) 320px; } .rehab-card-art { width:120px; right:15px; } }
+@media(max-width:1250px) { .rehab-heading h2 { font-size:23px; } .rehab-session-note { display:none; } .rehab-workspace { grid-template-columns:minmax(0,1fr) 260px; gap:16px; } #tab-games .game-select-pill.rehab-activity { padding:19px 16px; } .rehab-card-art { width:70px; right:3px; opacity:.7; } .rehab-card-copy { max-width:80%; } .rehab-card-copy strong { font-size:19px; } .rehab-card-kicker { font-size:8px; } .rehab-player-heading { padding:18px; } .rehab-input-badge { max-width:155px; font-size:10px; } .rehab-controls { padding:18px; flex-wrap:wrap; } #tab-games .rehab-main-actions .btn { min-width:130px; font-size:14px; } .rehab-metrics { padding:18px; } .rehab-metrics>div+div { padding-left:15px; } .rehab-help,.rehab-feedback,.rehab-input-settings { padding:18px; } }
+@media(max-width:1050px) { .rehab-workspace { grid-template-columns:1fr; } .rehab-companion { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); align-items:start; } .rehab-activities { gap:10px; } .rehab-card-art { display:none; } .rehab-card-copy { max-width:100%; } .rehab-card-selection { position:static; margin-top:8px; } }
+@media(max-width:700px) { .rehab-activities { grid-template-columns:1fr; } #tab-games .game-select-pill.rehab-activity { min-height:135px; } .rehab-card-art { display:block; width:90px; } .rehab-card-copy { max-width:75%; } .rehab-card-selection { position:absolute; } .rehab-heading h2 { font-size:22px; } .rehab-heading p { font-size:13px; line-height:1.7; } .rehab-section-label p { display:none; } .rehab-companion { display:flex; } .rehab-input-badge { max-width:140px; } #tab-games #gameMovementPrompt { font-size:12px; } .rehab-prompt { padding:12px 16px; } .rehab-metrics { gap:10px; } .rehab-metrics>div+div { padding-left:10px; } .rehab-metrics span { font-size:10px; } .rehab-metrics strong { font-size:20px; } }
+#tab-games { scroll-margin-top:100px; }
+.rehab-focus-bar { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:0 0 18px; }
+.rehab-focus-bar button { border:0; border-bottom:1px solid #a9bdab; color:#3e6a48; padding:9px 0; background:transparent; font:13px Arial,sans-serif; cursor:pointer; min-height:44px; }
+.rehab-focus-bar span { font:12px Arial,sans-serif; color:#73836d; }
+#tab-games.rehab-focus .rehab-heading, #tab-games.rehab-focus .rehab-activities, #tab-games.rehab-focus .rehab-section-label { display:none; }
+.rehab-controls { border-top:1px solid #e9eee6; background:#fff; }
+.rehab-player-heading { padding-bottom:16px; }
+
+#tab-games #gameManualControls:not([hidden]) { display:contents; }
+#tab-games #gameManualControls>div { margin:0; gap:10px; }
+#tab-games #gameManualControls .btn { min-width:120px; min-height:54px; margin:0; font-size:16px; padding:14px 20px; }
+#tab-games #manualDinoControl { width:auto; }
+#tab-games.rehab-manual #btnGamePause { background:#fff; color:#38644a; border-color:#ceddd0; }
+#tab-games .rehab-companion [hidden] { display:none!important; }
+/* Numbered right-hand setup for isolated finger control. */
+.dino-finger-setup { padding:24px; border-top:1px solid #e4ebe2; background:#f9fbf8; }
+.dino-finger-intro h4 { font:500 21px/1.5 'Poppins',Arial,sans-serif; color:#345440; margin-top:6px; }
+.dino-finger-intro p { font:14px/1.8 Arial,sans-serif; color:#61765f; margin-top:8px; }
+.dino-finger-layout { display:grid; grid-template-columns:minmax(240px,1.2fr) minmax(180px,1fr); gap:24px; align-items:center; margin-top:24px; }
+.dino-hand-diagram { width:100%; max-width:320px; min-width:240px; justify-self:center; overflow:visible; }
+.dino-finger-target { cursor:pointer; outline:none; }
+.dino-finger-target circle { fill:#fff; stroke:#8eada4; stroke-width:1.8; transition:fill .15s,stroke .15s; }
+.dino-finger-target text { font:600 17px Arial,sans-serif; fill:#41665b; text-anchor:middle; dominant-baseline:central; pointer-events:none; }
+.dino-finger-target:hover circle,.dino-finger-target:focus-visible circle { fill:#e7f1e8; stroke:#39775c; stroke-width:3; }
+.dino-finger-target.selected circle { fill:#2e7254; stroke:#2e7254; }
+.dino-finger-target.selected text { fill:#fff; }
+.dino-hand-caption { text-anchor:middle; font:10px 'Poppins',Arial,sans-serif; fill:#718a83; letter-spacing:2px; }
+.dino-finger-choice strong { display:block; font:500 18px/1.6 'Poppins',Arial,sans-serif; color:#35583e; }
+.dino-finger-choice p { font:13px/1.8 Arial,sans-serif; color:#657a61; margin-top:12px; }
+.dino-finger-choice .btn { margin-top:15px; min-height:46px; }
+.dino-finger-note { display:block; margin-top:18px; font:12px/1.8 Arial,sans-serif; color:#72846a; }
+.dino-change-finger { border:1px solid #ceddd0; padding:10px 12px; background:#f8fbf6; color:#42684b; border-radius:6px; font:12px Arial,sans-serif; cursor:pointer; min-height:43px; }
+#tab-games .btn:disabled { opacity:.5; cursor:default; }
+@media(max-width:1100px) { .dino-finger-layout { grid-template-columns:1fr 1fr; } }
+@media(max-width:700px) { .dino-finger-layout { grid-template-columns:1fr; }.rehab-player-heading { flex-wrap:wrap; }.dino-finger-setup { padding:18px; } }
+
+/* Compact number badges fit within the finger; transparent targets stay easy to click. */
+.dino-finger-target .dino-finger-hit,
+.dino-finger-target:hover .dino-finger-hit,
+.dino-finger-target:focus-visible .dino-finger-hit,
+.dino-finger-target.selected .dino-finger-hit {
+    fill:transparent;
+    stroke:none;
+    pointer-events:all;
+}
+.dino-finger-target .dino-finger-number { stroke-width:1.2; }
+.dino-finger-target text { font-size:11px; }
+.dino-finger-target:hover .dino-finger-number,
+.dino-finger-target:focus-visible .dino-finger-number { stroke-width:2; }
+
+/* Quiet, distinct environments for the two patient-paced activities. */
+#tab-games .rehab-activity[data-game="fruit"] { background:#fafbf5; border-top:4px solid #88a36a; }
+#tab-games .rehab-activity[data-game="balloon"] { background:#f5f9fc; border-top:4px solid #709eb7; }
+#tab-games .rehab-activity[data-game="fruit"].active { background:#f0f5e7; border-color:#7f9c66; box-shadow:inset 0 0 0 1px #7f9c66; }
+#tab-games .rehab-activity[data-game="balloon"].active { background:#eaf3f9; border-color:#709eb7; box-shadow:inset 0 0 0 1px #709eb7; }
+#tab-games .rehab-activity[data-game="balloon"] .rehab-card-tag { color:#416f89!important; }
+#tab-games[data-activity="balloon"] .rehab-prompt { background:#eef6fb; border-color:#dce9f1; }
+#tab-games[data-activity="balloon"] #gameMovementPrompt { color:#345c74; }
+#tab-games[data-activity="balloon"] .rehab-prompt-dot { background:#608faa; }
+#tab-games[data-activity="balloon"] .rehab-player-heading h3 { color:#345c74; }
+#tab-games[data-activity="balloon"] .rehab-main-actions>.btn-primary { background:#467c99; border-color:#467c99; }
+#tab-games[data-activity="balloon"] .rehab-main-actions>.btn-primary:hover { background:#386b87; }
+#tab-games[data-activity="balloon"] .rehab-feedback .progress-bar-fill { background:#709eb7; }
+#tab-games[data-activity="fruit"] .rehab-prompt { background:#f4f7ec; }
+#tab-games[data-activity="fruit"] .rehab-player-heading h3 { color:#486237; }
+.rehab-card-copy .rehab-card-best { margin-top:6px; padding-top:9px; border-top:1px solid #cddbcf; font:600 12px Arial,sans-serif!important; color:#3c6148!important; }
+.rehab-best-metric strong { color:#467b62; }
+.rehab-score-progress { display:flex; flex-wrap:wrap; align-items:center; justify-content:space-between; gap:6px 14px; padding:10px 18px; border-top:1px solid #e4ece2; background:#f4f8f0; color:#426449; font:12px/1.5 Arial,sans-serif; flex-shrink:0; }
+.rehab-score-progress small { font-size:10px; color:#718371; }
+/* Compact controls in every state; the canvas keeps its full-width 920:520 ratio. */
+@media(min-width:1100px) and (min-height:650px) {
+    #tab-games.rehab-focus .rehab-focus-bar { padding-bottom:10px; }
+    #tab-games:is([data-activity="fruit"],[data-activity="balloon"]) .rehab-player-heading { padding:12px 18px; flex-shrink:0; }
+    #tab-games:is([data-activity="fruit"],[data-activity="balloon"]) .rehab-controls { padding:10px 18px; flex-shrink:0; }
+    #tab-games:is([data-activity="fruit"],[data-activity="balloon"]) .rehab-prompt { padding:10px 18px; min-height:46px; flex-shrink:0; }
+    #tab-games:is([data-activity="fruit"],[data-activity="balloon"]) .rehab-metrics { padding:10px 18px; flex-shrink:0; }
+    #tab-games .rehab-metrics strong { font-size:20px; }
+}
+/* Activity library → guidance → immersive session → results. */
+#tab-games[data-stage="library"] .rehab-workspace,
+#tab-games[data-stage="library"] .rehab-play-label,
+#tab-games[data-stage="library"] .rehab-focus-bar,
+#tab-games[data-stage="library"] .rehab-bottom-note {display:none!important}
+#tab-games .rehab-activities {grid-template-columns:1fr;gap:14px;max-width:1100px;margin:0 auto}
+#tab-games .rehab-activity.game-select-pill {min-height:168px;padding:22px 30px;border-top-width:1px;border-left:4px solid #88a36a;border-radius:12px;background:#fff}
+#tab-games .rehab-activity[data-game="balloon"] {border-left-color:#709eb7}
+#tab-games .rehab-activity[data-game="dino"] {border-left-color:#899782}
+#tab-games .rehab-card-copy {max-width:calc(100% - 160px);gap:5px}
+#tab-games .rehab-card-copy strong {font-size:24px}
+#tab-games .rehab-card-art {right:36px;bottom:26px;width:105px;height:110px}
+#tab-games .rehab-card-best {margin-top:8px;padding-top:10px;max-width:450px}
+#tab-games .rehab-card-selection {display:none}
+#tab-games:not([data-stage="library"])>.rehab-heading,
+#tab-games:not([data-stage="library"])>.rehab-activities,
+#tab-games:not([data-stage="library"])>.rehab-section-label,
+#tab-games:not([data-stage="library"])>.rehab-bottom-note {display:none}
+#tab-games[data-stage="instructions"] .rehab-workspace {grid-template-columns:minmax(0,1.15fr) minmax(320px,.85fr);max-width:1180px;margin:auto}
+#tab-games[data-stage="instructions"] .rehab-focus-bar {display:flex!important;max-width:1180px;margin:auto}
+#tab-games[data-stage="instructions"] .rehab-player> :is(canvas,.rehab-prompt,.rehab-metrics,.rehab-completion,.rehab-score-progress) {display:none!important}
+#tab-games[data-stage="instructions"] .rehab-player-heading {padding:26px}
+#tab-games[data-stage="instructions"] .rehab-player {min-height:210px}
+#tab-games[data-stage="instructions"] .rehab-companion>.rehab-help {padding:30px}
+#tab-games[data-stage="instructions"] .rehab-companion> :not(.rehab-help) {display:none}
+#tab-games .game-settings-button {margin-left:auto;min-height:44px;padding:10px 18px;border:1px solid #cadbd2;background:white;border-radius:7px;font:500 14px Arial,sans-serif;color:#345b48;cursor:pointer}
+body.game-session-open {overflow:hidden}
+#tab-games[data-stage="playing"] {position:fixed;inset:0;z-index:2000;background:#edf2ee;padding:16px;overflow:hidden;width:100%;height:100dvh;box-sizing:border-box}
+#tab-games[data-stage="playing"] .rehab-focus-bar {display:none!important}
+#tab-games[data-stage="playing"] .rehab-workspace {display:block;height:100%;max-width:1600px;margin:auto}
+#tab-games[data-stage="playing"] .rehab-player {height:100%;display:flex;flex-direction:column;box-sizing:border-box}
+#tab-games[data-stage="playing"] .rehab-player-heading {padding:10px 22px;flex-shrink:0}
+#tab-games[data-stage="playing"] .rehab-player-heading h3 {font-size:21px}
+#tab-games[data-stage="playing"] .rehab-controls {padding:9px 22px;flex-shrink:0}
+#tab-games[data-stage="playing"] .rehab-main-actions .btn {min-height:44px;padding:10px 20px;font-size:15px}
+#tab-games[data-stage="playing"] .rehab-prompt {padding:8px 22px;min-height:42px;flex-shrink:0}
+#tab-games[data-stage="playing"] #gameCanvas {flex:1;min-height:0;object-fit:contain;width:100%;height:0;aspect-ratio:auto}
+#tab-games[data-stage="playing"] .rehab-metrics {flex-shrink:0;padding:10px 22px}
+#tab-games[data-stage="playing"] .rehab-score-progress {display:none}
+#tab-games[data-stage="playing"] .rehab-companion {display:none}
+#tab-games[data-stage="playing"] .dino-finger-setup {overflow:auto;min-height:0}
+#tab-games.game-settings-open .rehab-companion {display:flex;position:fixed;z-index:2100;right:24px;top:85px;bottom:24px;width:350px;overflow:auto;padding:18px;background:#f7faf7;border:1px solid #cddbd1;border-radius:12px;box-shadow:0 18px 70px #183e3226;box-sizing:border-box}
+#tab-games.game-settings-open .rehab-companion>.rehab-help {display:none}
+#tab-games.game-settings-open .rehab-companion> :not(.rehab-help) {display:block}
+#tab-games .game-settings-close {align-self:flex-end;min-height:42px}
+#tab-games .rehab-adjustments summary {font-size:14px}
+#tab-games[data-stage="results"] .rehab-workspace,
+#tab-games[data-stage="results"] .rehab-focus-bar {display:none!important}
+.game-results {max-width:920px;margin:30px auto;padding:48px;background:#fff;border:1px solid #d9e4dc;border-radius:16px;text-align:center;outline:none}
+.game-results h2 {font:500 30px/1.5 Poppins,Arial,sans-serif;color:#294c3b;margin:12px 0}
+.game-results>p {font-size:15px;color:#627969;margin:12px 0}
+.game-result-stats {display:grid;grid-template-columns:repeat(4,1fr);margin:32px 0;background:#f3f7f2;border-radius:12px;padding:25px 12px;gap:15px}
+.game-result-stats span {display:block;font-size:13px;color:#617566;margin-bottom:12px}
+.game-result-stats strong {font:500 32px Poppins,Arial,sans-serif;color:#365d46}
+.game-result-actions {display:flex;justify-content:center;gap:14px;margin-top:30px}
+.game-result-actions .btn {min-height:52px;min-width:180px;font-size:16px}
+#tab-games .game-result-actions .btn {display:inline-flex;align-items:center;justify-content:center;text-align:center}
+/* Three activity choices share one row on the desktop dashboard. */
+#tab-games .rehab-activities {grid-template-columns:repeat(3,minmax(0,1fr));max-width:none;gap:20px}
+#tab-games .rehab-activity.game-select-pill {min-height:265px;padding:26px 24px}
+#tab-games .rehab-card-copy {max-width:100%;padding-bottom:62px}
+#tab-games .rehab-card-copy strong {font-size:25px}
+#tab-games .rehab-card-copy .rehab-card-best {position:absolute;bottom:0;left:0;right:0;max-width:none;padding-top:14px}
+#tab-games .rehab-card-art {width:72px;height:78px;right:18px;bottom:66px;opacity:.75}
+#tab-games .rehab-card-tag {padding-right:65px}
+/* Keep a uniform border around each activity card. */
+#tab-games .rehab-activity.game-select-pill {border-left-width:1px;border-left-color:#dce5de}
+#tab-games .rehab-activity.game-select-pill.active {border-left-color:#7a9e84}
+#tab-games .rehab-activity[data-game="fruit"].active {border-left-color:#7f9c66}
+#tab-games .rehab-activity[data-game="balloon"].active {border-left-color:#709eb7}
+/* Give the activity cards breathing room and keep guidance in a dialog. */
+#tab-games .rehab-activity.game-select-pill {height:clamp(360px,calc(100dvh - 290px),610px);min-height:360px;padding:32px 28px;display:flex;align-items:stretch}
+#tab-games .rehab-card-copy {width:100%;padding-bottom:65px;gap:12px;justify-content:flex-start}
+#tab-games .rehab-card-copy strong {font-size:28px}
+#tab-games .rehab-card-copy .rehab-card-best {bottom:0}
+#tab-games .rehab-card-art {width:145px;height:150px;right:28px;bottom:108px;opacity:.9;transform-origin:50% 75%}
+#tab-games .rehab-card-tag {padding-right:0}
+#tab-games[data-stage="instructions"]>.rehab-focus-bar {display:none!important}
+#tab-games[data-stage="instructions"]>.rehab-heading,
+#tab-games[data-stage="instructions"]>.rehab-activities,
+#tab-games[data-stage="instructions"]>.rehab-section-label:not(.rehab-play-label) {display:grid}
+#tab-games[data-stage="instructions"]>.rehab-heading {display:flex}
+#tab-games .game-instructions-dialog {width:min(1080px,calc(100vw - 64px));max-height:calc(100dvh - 64px);padding:60px 24px 24px;border:1px solid #d4e0d8;border-radius:18px;background:#f6f9f6;color:#294339;overflow:auto;box-shadow:0 24px 100px #19392c30;margin:auto}
+#tab-games .game-instructions-dialog:not([open]) {display:none}
+.game-instructions-dialog::backdrop {background:#19382d66;backdrop-filter:blur(4px)}
+.game-popup-close {position:absolute;right:24px;top:14px;min-height:38px;padding:8px 18px;border:1px solid #cddbd0;border-radius:6px;background:white;color:#375c46;font:500 14px Arial,sans-serif;cursor:pointer}
+#tab-games[data-stage="instructions"] .rehab-workspace {grid-template-columns:minmax(0,1.1fr) minmax(300px,.9fr);gap:18px}
+#tab-games .rehab-activity[data-game="fruit"] .rehab-card-art {animation:orchard-sway 4.5s ease-in-out infinite}
+#tab-games .rehab-activity[data-game="dino"] .rehab-card-art {animation:dino-hop 3.8s ease-in-out infinite}
+#tab-games .rehab-activity[data-game="balloon"] .rehab-card-art {animation:balloon-float 5s ease-in-out infinite}
+@keyframes orchard-sway {0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg) translateY(-4px)}}
+@keyframes dino-hop {0%,45%,75%,100%{transform:translateY(0)}58%{transform:translateY(-18px) rotate(-3deg)}68%{transform:translateY(-4px)}}
+@keyframes balloon-float {0%,100%{transform:translateY(5px) rotate(-3deg)}50%{transform:translateY(-13px) rotate(3deg)}}
+@media(prefers-reduced-motion:reduce) {#tab-games .rehab-card-art {animation:none!important}}
+#tab-games .rehab-card-copy {height:100%;box-sizing:border-box;flex:1;align-self:stretch}
+#tab-games .rehab-card-art {bottom:100px}
+/* Compact, vertical pre-game guidance. */
+#tab-games .game-instructions-dialog {width:min(620px,calc(100vw - 64px));padding:56px 24px 24px}
+#tab-games[data-stage="instructions"] .rehab-workspace {display:flex;flex-direction:column;gap:16px}
+#tab-games[data-stage="instructions"] .rehab-player {min-height:0;width:100%}
+#tab-games[data-stage="instructions"] .rehab-player-heading {padding:20px 24px}
+#tab-games[data-stage="instructions"] .rehab-controls {padding:16px 24px}
+#tab-games[data-stage="instructions"]:not(.game-settings-open) .rehab-companion {width:100%}
+#tab-games[data-stage="instructions"] .rehab-companion>.rehab-help {padding:24px}
+#tab-games[data-stage="instructions"] .dino-finger-layout {grid-template-columns:minmax(170px,1fr) minmax(170px,1fr);gap:14px;margin-top:16px}
+#tab-games[data-stage="instructions"] .dino-hand-diagram {min-width:0;max-width:220px}
+#tab-games .game-popup-close {position:absolute;top:14px;right:16px;display:grid;place-items:center;width:36px;height:36px;min-height:36px;padding:0;border:0;border-radius:50%;background:transparent;color:#728078;font:300 27px/1 Arial,sans-serif;cursor:pointer;transition:background .15s,color .15s}
+#tab-games .game-popup-close:hover {background:#e6eee8;color:#294c3a}
+#tab-games .game-popup-close:focus-visible {outline:2px solid #57866b;outline-offset:3px;background:#e6eee8}
+#tab-games .game-popup-close span {display:block;line-height:1;transform:translateY(-1px)}
+/* A single pre-game panel: preview above, guidance first, actions last. */
+#tab-games .game-preview,#tab-games .game-setup-settings {display:none}
+#tab-games .game-instructions-dialog {width:min(680px,calc(100vw - 64px));background:white;padding:42px 30px 24px;border-radius:16px}
+#tab-games[data-stage="instructions"] .rehab-workspace {gap:0}
+#tab-games[data-stage="instructions"] .rehab-player {display:contents}
+#tab-games[data-stage="instructions"] .rehab-player-heading {order:0;padding:6px 0 24px;gap:20px;align-items:center}
+#tab-games[data-stage="instructions"] .rehab-player-heading>div {flex:1;min-width:0}
+#tab-games[data-stage="instructions"] .rehab-player-heading h3 {font-size:27px;margin-top:9px}
+#tab-games[data-stage="instructions"] #gameSettingsButton,
+#tab-games[data-stage="instructions"] #gameStatusPill {display:none!important}
+#tab-games[data-stage="instructions"] .game-preview {display:block;flex:0 0 220px;width:220px;margin:0}
+.game-preview canvas {display:block;width:100%;height:auto;border:1px solid #e0e7df;border-radius:10px;background:#f4f7ef}
+.game-preview figcaption {margin-top:7px;color:#77867d;font:11px Arial,sans-serif;text-align:center}
+#tab-games[data-stage="instructions"] .dino-finger-setup {order:1;padding:20px 0;border-bottom:1px solid #e5ece6}
+#tab-games[data-stage="instructions"] .rehab-companion {order:2;gap:0}
+#tab-games[data-stage="instructions"] .rehab-companion>.rehab-help {padding:24px 0;border:0;border-top:1px solid #e6ece6;border-radius:0}
+#tab-games[data-stage="instructions"] .rehab-help>.rehab-small-label {display:none}
+#tab-games[data-stage="instructions"] .rehab-help h3 {font-size:18px;margin:0 0 24px}
+#tab-games[data-stage="instructions"] .rehab-help ol {gap:22px}
+#tab-games[data-stage="instructions"] .rehab-help li strong {font-size:15px}
+#tab-games[data-stage="instructions"] .rehab-help li p {font-size:14px}
+#tab-games[data-stage="instructions"] .rehab-reassurance {background:#f4f7f2;border:0;border-radius:8px;padding:13px 16px;margin-top:24px;font-size:13px}
+#tab-games[data-stage="instructions"] .rehab-controls {order:3;padding:20px 0 0;border-top:1px solid #e6ece6;gap:14px}
+#tab-games[data-stage="instructions"] .game-setup-settings {display:block;border:0;background:transparent;padding:12px 0;color:#597463;text-decoration:underline;text-underline-offset:4px;font:13px Arial,sans-serif;cursor:pointer}
+#tab-games[data-stage="instructions"] .rehab-main-actions .btn {min-width:190px}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-companion {background:#f7faf7;padding:18px;z-index:3;top:50px;right:20px;bottom:20px;position:absolute;width:330px;box-shadow:0 10px 40px #26473722}
+#tab-games[data-stage="instructions"] .rehab-player-heading,
+#tab-games[data-stage="instructions"] .rehab-controls {width:100%;box-sizing:border-box}
+#tab-games[data-stage="instructions"] .rehab-controls {justify-content:space-between}
+/* Settings replace guidance inside the dialog instead of floating over it. */
+#tab-games[data-stage="instructions"].game-settings-open .rehab-companion {position:static;inset:auto;width:100%;max-height:none;overflow:visible;padding:0;border:0;border-radius:0;box-shadow:none;background:transparent;gap:18px;display:flex;box-sizing:border-box}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-companion>.rehab-feedback {display:none!important}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-companion>.game-settings-close {display:inline-flex;align-self:flex-start;order:3;margin-top:0;min-height:44px;padding:10px 18px;font-size:14px}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-companion>.rehab-input-settings {padding:18px 0;border:0;border-top:1px solid #e4eae3;border-radius:0;background:transparent}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-adjustments {border:1px solid #dce5de;border-radius:10px;background:#f8faf7;width:100%;box-sizing:border-box}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-adjustment-fields {gap:18px;padding:18px 22px}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-adjustment-fields label {font-size:14px;line-height:1.6}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-controls,
+#tab-games[data-stage="instructions"].game-settings-open .dino-finger-setup {display:none!important}
+#tab-games[data-stage="instructions"].game-settings-open .game-preview {display:none}
+#tab-games[data-stage="instructions"].game-settings-open .rehab-player-heading {padding-bottom:20px}
+/* Dino setup is a second dialog step, after the gameplay guidance. */
+#tab-games .game-finger-back {display:none}
+#tab-games[data-stage="instructions"][data-activity="dino"][data-setup-step="guidance"] #dinoFingerSetup {display:none!important}
+#tab-games[data-stage="instructions"][data-activity="dino"][data-setup-step="finger"] .rehab-companion,
+#tab-games[data-stage="instructions"][data-activity="dino"][data-setup-step="finger"] .game-preview,
+#tab-games[data-stage="instructions"][data-activity="dino"][data-setup-step="finger"] .game-setup-settings {display:none!important}
+#tab-games[data-stage="instructions"][data-setup-step="finger"] .game-finger-back {display:block;border:0;background:transparent;color:#597463;text-decoration:underline;text-underline-offset:4px;font:13px Arial,sans-serif;cursor:pointer;padding:12px 0}
+#tab-games[data-stage="instructions"][data-setup-step="finger"] .dino-finger-setup {background:white;padding:18px 0;border-bottom:0}
+#tab-games[data-stage="instructions"][data-setup-step="finger"] .dino-finger-layout {margin-top:18px}
+#tab-games[data-stage="instructions"][data-setup-step="finger"] .dino-finger-intro h4 {font-size:22px}

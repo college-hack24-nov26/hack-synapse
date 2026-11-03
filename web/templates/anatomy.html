@@ -1,0 +1,109 @@
+<div id="tab-glossary" class="dashboard-tab-content">
+    <header class="atlas-heading">
+        <div>
+            <h2>Explore your hand</h2>
+            <p>Interactive volumetric 3D hand anatomy with layered dissection, innervation maps &amp; sensor tracking</p>
+        </div>
+    </header>
+
+    <div class="atlas-layout">
+        <!-- Main 3D Viewport Column -->
+        <section class="atlas-viewer" aria-labelledby="atlasViewerTitle">
+            <header class="atlas-viewer-head">
+                <div>
+                    <h3 id="atlasViewerTitle">3D Hand Anatomy</h3>
+                    <p id="atlasVisibleCount">Multi-layer interactive model · Palmar &amp; dorsal aspects</p>
+                </div>
+                <div class="atlas-presets" role="group" aria-label="View direction">
+                    <button type="button" data-atlas-view="palm" class="atlas-view-btn" aria-pressed="true">Palm</button>
+                    <button type="button" data-atlas-view="back" class="atlas-view-btn" aria-pressed="false">Back</button>
+                    <button type="button" data-atlas-view="side" class="atlas-view-btn" aria-pressed="false">Side</button>
+                    <button type="button" data-atlas-view="angle" class="atlas-view-btn" aria-pressed="false">3/4 View</button>
+                    <button type="button" id="atlasSpin" class="atlas-view-btn atlas-spin-btn" title="Toggle automatic rotation">Spin</button>
+                </div>
+            </header>
+
+            <div class="atlas-stage" id="atlasStage">
+                <canvas id="atlasCanvas" aria-label="Interactive 3D hand anatomy. Drag to rotate, scroll to zoom, click any part to inspect."></canvas>
+                <div class="atlas-notice" id="atlasNotice" role="status">
+                    <div class="atlas-spinner"></div>
+                    <strong>Reconstructing 3D Hand Model…</strong>
+                    <p>Preparing volumetric tissue layers, smooth normals &amp; innervation data.</p>
+                </div>
+                <!-- 3D floating tracking label pinned to selected structure -->
+                <div class="atlas-floating-label" id="atlasFloatingLabel" style="display:none;"></div>
+
+                <div class="atlas-camera-tools" role="group" aria-label="Camera controls">
+                    <button type="button" id="atlasZoomIn" title="Zoom in" aria-label="Zoom in">+</button>
+                    <button type="button" id="atlasZoomOut" title="Zoom out" aria-label="Zoom out">−</button>
+                    <button type="button" id="atlasReset" title="Reset camera to front view">Reset</button>
+                </div>
+            </div>
+
+            <footer class="atlas-viewer-footer">
+                <span>Drag to rotate · Scroll to zoom · Click any structure to highlight</span>
+                <span class="atlas-legend">
+                    <i class="atlas-key-muscle"></i> Muscle
+                    <i class="atlas-key-bone"></i> Bone / Tendon
+                    <i class="atlas-key-cartilage"></i> Cartilage / Sheath
+                    <i class="atlas-key-skin"></i> Skin
+                </span>
+            </footer>
+        </section>
+
+        <!-- Right Side: Details & Search Directory -->
+        <aside class="atlas-reference">
+            <section class="atlas-controls" aria-label="Anatomy layers">
+                <div class="atlas-layer-bar">
+                    <span class="atlas-bar-title">Visible layers</span>
+                    <label class="atlas-layer-toggle"><input type="checkbox" id="atlasLayerSkin" data-k="s" checked><span class="atlas-swatch" style="background:#e8b89c"></span>Skin</label>
+                    <div class="atlas-opacity-wrap"><label for="atlasSkinOpacity" class="atlas-opacity-label">Skin opacity</label><input type="range" id="atlasSkinOpacity" min="0" max="100" value="80" class="atlas-range"></div>
+                    <label class="atlas-layer-toggle"><input type="checkbox" id="atlasLayerBones" data-k="b" checked><span class="atlas-swatch" style="background:#d8c3a0"></span>Bones &amp; Tendons</label>
+                    <label class="atlas-layer-toggle"><input type="checkbox" id="atlasLayerMuscles" data-k="m" checked><span class="atlas-swatch" style="background:#c0392b"></span>Muscles</label>
+                    <label class="atlas-layer-toggle"><input type="checkbox" id="atlasLayerCartilage" data-k="c" checked><span class="atlas-swatch" style="background:#a9c6dd"></span>Cartilage &amp; Sheaths</label>
+                </div>
+                <div class="atlas-isolate-bar">
+                    <span class="atlas-bar-title">Quick isolate</span>
+                    <button type="button" class="atlas-pill-btn active" data-atlas-preset="all">Full Hand</button><button type="button" class="atlas-pill-btn" data-atlas-preset="skin">Skin Only</button><button type="button" class="atlas-pill-btn" data-atlas-preset="ana">Anatomy Only</button><button type="button" class="atlas-pill-btn" data-atlas-preset="b">Bones &amp; Tendons</button><button type="button" class="atlas-pill-btn" data-atlas-preset="m">Muscles</button>
+                </div>
+            </section>
+            <!-- Selected Structure Detail Card -->
+            <section class="atlas-detail" aria-live="polite">
+                <div class="atlas-eyebrow-row">
+                    <span class="atlas-eyebrow" id="atlasSelectedType">ANATOMICAL STRUCTURE</span>
+                    <span class="atlas-side-pill" id="atlasSelectedSide">PALM SIDE</span>
+                </div>
+                <h3 id="atlasSelectedName">Tap any structure on the hand</h3>
+                <p id="atlasSelectedDescription">Rotate the 3D hand and click any muscle, tendon, bone, or joint — or use the search below to isolate and fly the camera directly to it.</p>
+                
+            </section>
+
+            <!-- Search Directory Card -->
+            <section class="atlas-directory">
+                <header class="atlas-dir-header">
+                    <div>
+                        <h3>Anatomy Library</h3>
+                        <small>Search muscles, tendons, joints &amp; innervation</small>
+                    </div>
+                    <span id="atlasListCount" class="atlas-count-badge">24</span>
+                </header>
+                <div class="atlas-search-box">
+                    <input type="search" id="atlasSearch" placeholder="Search (e.g. thenar, interossei, flexor, ulnar)…" autocomplete="off">
+                </div>
+                <ul id="atlasSearchDropdown" class="atlas-search-results"></ul>
+                
+                <div class="atlas-quick-categories">
+                    <div class="atlas-cat-title">Clinical Groups</div>
+                    <div class="atlas-cat-chips">
+                        <button type="button" class="atlas-chip" data-search-chip="thenar">Thenar</button>
+                        <button type="button" class="atlas-chip" data-search-chip="hypothenar">Hypothenar</button>
+                        <button type="button" class="atlas-chip" data-search-chip="interossei">Interossei</button>
+                        <button type="button" class="atlas-chip" data-search-chip="retinaculum">Retinaculum</button>
+                        <button type="button" class="atlas-chip" data-search-chip="phalanges">Phalanges</button>
+                        <button type="button" class="atlas-chip" data-search-chip="cartilage">Cartilage</button>
+                    </div>
+                </div>
+            </section>
+        </aside>
+    </div>
+</div>

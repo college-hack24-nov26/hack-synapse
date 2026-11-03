@@ -1,0 +1,43 @@
+/* Anatomy uses the same header budget as the other workspaces. */
+body:has(#tab-glossary.active){overflow:hidden}
+body:has(#tab-glossary.active) .app-container{height:100dvh;min-height:0;display:flex;flex-direction:column;overflow:hidden}
+body:has(#tab-glossary.active) .workspace-layout{height:calc(100dvh - var(--app-nav-height));min-height:0;flex:1 1 0;overflow:hidden}
+.main-content-area:has(#tab-glossary.active){height:100%;min-height:0;box-sizing:border-box;padding:clamp(10px,1.5dvh,18px) clamp(12px,1.5vw,24px)!important;overflow:hidden}
+#tab-glossary.active{height:100%;max-height:100%;min-height:0;gap:10px}
+#tab-glossary .atlas-heading p{display:none}
+#tab-glossary .atlas-layout{height:auto;grid-template-columns:minmax(0,1fr) clamp(260px,25vw,350px);gap:12px}
+#tab-glossary .atlas-stage{min-height:0;background:radial-gradient(ellipse at 45% 40%,#eeeae0,#d6d5c9)}
+#tab-glossary .atlas-reference{display:grid;grid-template-rows:auto auto minmax(0,1fr);gap:10px}
+#tab-glossary .atlas-controls{border:1px solid #dfdac6;border-radius:12px;background:#fffef9;overflow:hidden}
+#tab-glossary .atlas-layer-bar{display:grid;grid-template-columns:1fr;gap:9px;border:0;padding:14px 16px;background:none}
+#tab-glossary .atlas-layer-toggle{font-size:12px;gap:8px}
+#tab-glossary .atlas-opacity-wrap{display:flex;justify-content:space-between;background:#f5f2e8;padding:7px 10px;margin:0 0 2px 22px}
+#tab-glossary .atlas-range{width:105px;max-width:55%}
+#tab-glossary .atlas-isolate-bar{padding:10px 16px;gap:6px;background:none}
+#tab-glossary .atlas-bar-title{grid-column:1/-1;display:block;width:100%;margin-bottom:2px}
+#tab-glossary .atlas-isolate-bar .atlas-pill-btn{font-size:11px;padding:5px 10px;border-radius:6px}
+#tab-glossary .atlas-detail{padding:12px 16px;min-height:0;overflow:auto;scrollbar-width:thin}
+#tab-glossary .atlas-detail h3{font-size:15px;line-height:1.4;margin:4px 0}
+#tab-glossary .atlas-detail p{font-size:11px;line-height:1.55;margin:5px 0 0}
+#tab-glossary .atlas-directory{padding:12px;min-height:0}
+#tab-glossary .atlas-search-results{min-height:0;overflow:auto;scrollbar-width:thin}
+#tab-glossary .atlas-viewer-footer{font-size:10px;padding:8px 12px}
+#tab-glossary .atlas-legend{display:none}
+@media(max-height:760px){
+ #tab-glossary .atlas-layer-bar{padding:10px 12px;grid-template-columns:1fr 1fr;gap:7px}
+ #tab-glossary .atlas-layer-toggle{font-size:10px;gap:5px}
+ #tab-glossary .atlas-opacity-wrap{grid-column:1/-1;grid-row:4;margin:0;padding:4px 8px}
+ #tab-glossary .atlas-isolate-bar{padding:8px 12px;gap:4px}
+ #tab-glossary .atlas-isolate-bar .atlas-pill-btn{font-size:10px;padding:4px 7px}
+ #tab-glossary .atlas-detail{max-height:125px;padding:9px 12px}
+ #tab-glossary .atlas-quick-categories{display:none}
+ #tab-glossary .atlas-viewer-head{padding:8px 12px;flex-wrap:wrap}
+ #tab-glossary .atlas-presets{flex-wrap:wrap}
+ #tab-glossary .atlas-dir-header small{display:none}
+}
+@media(max-width:850px){
+ #tab-glossary .atlas-layout{grid-template-columns:minmax(0,1fr) 240px}
+ #tab-glossary .atlas-heading h2{font-size:18px}
+ #tab-glossary .atlas-layer-bar{padding:10px;gap:7px}
+ #tab-glossary .atlas-viewer-footer{display:none}
+}

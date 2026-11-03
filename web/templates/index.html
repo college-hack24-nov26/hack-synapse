@@ -1,0 +1,641 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NeuroGlove</title>
+    <link rel="icon" type="image/png" href="/static/images/neuroglove-logo-five-fingers.png">
+    <link rel="apple-touch-icon" href="/static/images/neuroglove-logo-five-fingers.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/style.css?v=5.0">
+    <link rel="stylesheet" href="/static/css/clinical.css?v=6.7">
+    <link rel="stylesheet" href="/static/css/settings.css?v=1.0">
+    <link rel="stylesheet" href="/static/css/rehab.css?v=9.5">
+    <link rel="stylesheet" href="/static/css/guided.css?v=4.4">
+    <link rel="stylesheet" href="/static/css/anatomy.css?v=2.1">
+    <link rel="stylesheet" href="/static/css/personalisation.css?v=1.6">
+    <link rel="stylesheet" href="/static/css/history.css?v=1.0">
+    <link rel="stylesheet" href="/static/css/olive-theme.css?v=1.9" id="oliveThemeStylesheet">
+    <link rel="stylesheet" href="/static/css/screen-fit.css?v=1.6">
+    <link rel="stylesheet" href="/static/css/prediction.css?v=2.6">
+    <link rel="stylesheet" href="/static/css/navigation-sizing.css?v=1.0">
+    <link rel="stylesheet" href="/static/css/exercise-cards.css?v=2.2">
+    <link rel="stylesheet" href="/static/css/anatomy-layout.css?v=1.0">
+    <link rel="stylesheet" href="/static/css/language-fonts.css?v=1.0">
+
+
+    <!-- Chart.js for real-time sensor graphs -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Trilingual Translation Engine (English, Hindi, Marathi) -->
+    <script src="/static/js/translations.js?v=5.0"></script>
+    <script src="/static/js/content_translations.js?v=2.8"></script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Top Navigation / Header -->
+        <header class="app-header">
+            <div class="header-brand-group">
+                <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Collapse navigation" aria-controls="clinicalSidebar" aria-expanded="true" onclick="toggleSidebar()"><svg viewBox="0 0 24 24" width="21" height="21" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M4 6h16M4 12h16M4 18h16"/></svg></button>
+                <div class="brand-logo-wrap">
+                    <img src="/static/images/neuroglove-logo-five-fingers.png" alt="NeuroGlove Logo" class="brand-logo-img">
+                </div>
+                <div class="brand-text-wrap">
+                    <h1 class="brand-title">NeuroGlove</h1>
+                </div>
+            </div>
+
+            <!-- Right Controls: Device Status, Language, Patient Profile -->
+            <div class="header-right-group">
+                <!-- Multilingual Language Dropdown -->
+                <div class="lang-dropdown-wrapper">
+                    <svg class="language-globe" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3c5 5 5 13 0 18-5-5-5-13 0-18Z"/></svg>
+                    <select id="langSelect" class="lang-select-dropdown" aria-label="Language" onchange="setLanguage(this.value)">
+                        <option value="en">EN</option>
+                        <option value="hi">हिन्दी</option>
+                        <option value="mr">मराठी</option>
+                    </select>
+                    <svg class="language-chevron" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4.5 6.5 3.5 3.5 3.5-3.5"/></svg>
+                </div>
+
+                <!-- Patient Profile Menu / Dropdown -->
+                <div class="patient-profile-menu" id="patientMenu">
+                    <button type="button" class="patient-profile-btn" aria-label="Patient menu" onclick="togglePatientDropdown()">
+                        <div class="patient-avatar-circle">
+                            <svg viewBox="0 0 24 24" fill="currentColor" width="16" height="16"><path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+                        </div>
+                        <span class="patient-name">Aarav Sharma</span>
+                        <svg class="dropdown-chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" width="13" height="13"><polyline points="6 9 12 15 18 9"></polyline></svg>
+                    </button>
+                    <div class="patient-dropdown-popover" id="patientDropdownPopover">
+                        <button type="button" class="p-dropdown-item" onclick="openModal('modalSettings')">
+                            <span data-i18n="nav_settings_calib">Settings & Calibration</span>
+                        </button>
+                        <button type="button" class="p-dropdown-item" onclick="openHistoryModal()">
+                            <span data-i18n="nav_history_reports">Session History & Reports</span>
+                        </button>
+                        <hr class="p-dropdown-divider">
+                        <button type="button" class="p-dropdown-item" onclick="openModal('modalTerms')">
+                            <span data-i18n="terms_of_use">Terms of Clinical Use</span>
+                        </button>
+                        <button type="button" class="p-dropdown-item" onclick="openModal('modalPrivacy')">
+                            <span data-i18n="privacy_policy">Patient Privacy Policy</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Main Workspace Layout (Full-Width Clean Workspace, No Sidebar) -->
+        <div class="workspace-layout" id="workspaceLayout">
+            <aside class="clinical-sidebar" id="clinicalSidebar">
+                <div class="sidebar-label">PATIENT WORKSPACE</div>
+            <!-- Horizontal Top Navigation Tabs -->
+            <nav class="top-nav-tabs" aria-label="Main navigation">
+                <button type="button" class="top-nav-tab active" title="Telemetry & Mapping" aria-current="page" id="tabBtn-telemetry" onclick="switchDashboardTab('telemetry')">
+                    <span class="nav-index" aria-hidden="true">01</span><span data-i18n="tab_telemetry">Telemetry & Mapping</span>
+                </button>
+                <button type="button" class="top-nav-tab" title="Guided Exercises" id="tabBtn-exercises" onclick="switchDashboardTab('exercises')">
+                    <span class="nav-index" aria-hidden="true">02</span><span data-i18n="tab_exercises">Guided Exercises</span>
+                </button>
+                <button type="button" class="top-nav-tab" title="Rehab Games" id="tabBtn-games" onclick="switchDashboardTab('games')">
+                    <span class="nav-index" aria-hidden="true">03</span><span data-i18n="tab_games">Rehab Games</span>
+                </button>
+                <button type="button" class="top-nav-tab" title="Prediction" id="tabBtn-prediction" onclick="switchDashboardTab('prediction')"><span class="nav-index" aria-hidden="true">04</span><span>Prediction</span></button>
+                <button type="button" class="top-nav-tab" title="Anatomy Glossary" id="tabBtn-glossary" onclick="switchDashboardTab('glossary')">
+                    <span class="nav-index" aria-hidden="true">05</span><span data-i18n="tab_glossary">Anatomy Glossary</span>
+                </button>
+                <button type="button" class="top-nav-tab" title="Settings" id="tabBtn-settings" onclick="switchDashboardTab('settings')">
+                    <span class="nav-index" aria-hidden="true">06</span><span data-i18n="nav_settings">Settings</span>
+                </button>
+            </nav>
+
+
+                <div class="sidebar-bottom">
+                    <button type="button" class="top-nav-tab sidebar-utility" onclick="openHistoryModal()"><svg class="sidebar-utility-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 11a9 9 0 1 1 2.6 7.4M3 4v7h7"/><path d="M12 7v5l3 2"/></svg><span>Session history</span></button>
+                    <button type="button" class="top-nav-tab sidebar-utility" onclick="glovePersonalisation.open()" aria-haspopup="dialog" aria-controls="glovePersonalisationDialog"><svg class="sidebar-utility-icon" aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M8 12V6a1.5 1.5 0 0 1 3 0v5-7a1.5 1.5 0 0 1 3 0v7-6a1.5 1.5 0 0 1 3 0v7-4a1.5 1.5 0 0 1 3 0v7c0 4-2.5 7-6.5 7-2.8 0-4.6-1.3-6.2-3.5l-3.1-4.3a1.7 1.7 0 0 1 2.6-2.2L8 13"/></svg><span>Glove personalisation</span></button>
+                </div>
+            </aside>
+            <button class="sidebar-scrim" type="button" onclick="toggleSidebar()" aria-label="Close navigation"></button>
+            <!-- Main Content Area -->
+            <main class="main-content-area" id="mainContentArea">
+                {% include 'settings.html' %}
+
+        <!-- ================================================================= -->
+        <!-- TAB 1: TELEMETRY & MAPPING -->
+        <!-- ================================================================= -->
+        <div id="tab-telemetry" class="dashboard-tab-content active">
+            <!-- Page Title Section -->
+            <div class="page-title-section">
+                <div class="page-title-left">
+                    <h2 class="page-main-heading" data-i18n="tab_telemetry">Telemetry & Mapping</h2>
+                    <p class="page-main-desc" data-i18n="tel_page_desc">A real-time mirror of finger, wrist and grip sensor readings.</p>
+                </div>
+            </div>
+
+            <!-- Two-Column Clinical Grid: Left 3D Hand + Sensor Readings + Mapping, Right Exercise + Clf + Graphs + Summary -->
+            <div class="telemetry-main-grid">
+                
+                <!-- LEFT COLUMN (~62% width) -->
+                <div class="tel-col-left">
+                    
+                    <!-- Card 1: 3D Hand View + Sensor Readings Combined in one spacious card -->
+                    <div class="card card-combined-hand">
+                        <!-- Left Sub-Column: 3D Hand Viewport -->
+                        <div class="hand-3d-section" id="telemetry3DHandDock">
+                            <div class="hand-3d-header">
+                                <span class="badge-3d-view">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polygon points="12 2 2 7 12 12 22 7 12 2"></polygon><polyline points="2 17 12 22 22 17"></polyline><polyline points="2 12 12 17 22 12"></polyline></svg>
+                                    <span>Right hand</span>
+                                </span><span id="telemetryHandCaption" class="hand-view-caption">Live sensor mirror · 3D</span>
+                            </div>
+
+                            <!-- Vertical Camera Preset Buttons -->
+                            <div class="cam-vertical-bar">
+                                <button type="button" class="btn-cam-pill active" onclick="selectCameraPreset('palm', this)" title="Front View">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="3" y="3" width="18" height="18" rx="2"></rect><circle cx="12" cy="12" r="3"></circle></svg>
+                                    <span data-i18n="cam_front">Front</span>
+                                </button>
+                                <button type="button" class="btn-cam-pill" onclick="selectCameraPreset('dorsal', this)" title="Back / Dorsal View">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="3" y="3" width="18" height="18" rx="2"></rect><path d="M12 8v8"></path></svg>
+                                    <span data-i18n="cam_back">Back</span>
+                                </button>
+                                <button type="button" class="btn-cam-pill" onclick="selectCameraPreset('side', this)" title="Side View">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><rect x="3" y="3" width="18" height="18" rx="2"></rect><polyline points="9 10 12 12 9 14"></polyline></svg>
+                                    <span data-i18n="cam_side">Side</span>
+                                </button>
+                                <button type="button" class="btn-cam-pill" onclick="selectCameraPreset('reset', this)" title="Reset Perspective">
+                                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="13" height="13"><polyline points="23 4 23 10 17 10"></polyline><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path></svg>
+                                </button>
+                            </div>
+
+                            <!-- 3D Three.js WebGL Canvas -->
+                            <div class="canvas-wrapper-clean" id="canvasWrapperParent">
+                                <canvas id="mirrorHandCanvas" width="600" height="520" aria-label="Interactive right hand reflecting finger flexion and wrist movement"></canvas><div id="telemetryFeedNotice" class="telemetry-feed-notice" role="status"><strong id="telemetryFeedTitle">Waiting for glove</strong><p id="telemetryFeedMessage">Finger and wrist readings will appear when your glove sends data.</p></div>
+                            </div>
+
+                            <!-- Flex Sensor Activity Thermal Scale -->
+                            <div class="flex-activity-legend">
+                                <span class="fal-title" data-i18n="flex_sensor_activity">Flex Sensor Activity</span>
+                                <div class="fal-scale-row">
+                                    <span class="fal-label" data-i18n="level_low">Low</span>
+                                    <div class="fal-gradient-bar"></div>
+                                    <span class="fal-label" data-i18n="level_high">High</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right Sub-Column: Sensor Readings -->
+                        <div class="sensor-readings-section">
+                            <div class="section-title-row">
+                                <h3 class="section-heading" data-i18n="sensor_readings">Sensor Readings</h3>
+                            </div>
+
+                            <div class="sensor-channels-list">
+                                <!-- Thumb Flex -->
+                                <div class="sensor-channel-row">
+                                    <div class="sc-icon-wrap">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+                                    </div>
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row">
+                                            <span class="sc-name" data-i18n="thumb_flex">Thumb Flex</span>
+                                            <span class="sc-val" id="valThumbFlex">—</span>
+                                        </div>
+                                        <div class="sc-bar-bg">
+                                            <div class="sc-bar-fill" id="barThumbFlex" style="width: 42%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Index Flex -->
+                                <div class="sensor-channel-row">
+                                    <div class="sc-icon-wrap">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><path d="M18 11V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v5"></path><path d="M14 10V4a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path><path d="M10 10.5V6a2 2 0 0 0-2-2v0a2 2 0 0 0-2 2v8"></path></svg>
+                                    </div>
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row">
+                                            <span class="sc-name" data-i18n="index_flex">Index Flex</span>
+                                            <span class="sc-val" id="valIndexFlex">—</span>
+                                        </div>
+                                        <div class="sc-bar-bg">
+                                            <div class="sc-bar-fill" id="barIndexFlex" style="width: 67%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Middle Flex -->
+                                <div class="sensor-channel-row">
+                                    <div class="sc-icon-wrap">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><path d="M12 2v20M17 5v14M7 9v10"></path></svg>
+                                    </div>
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row">
+                                            <span class="sc-name" data-i18n="middle_flex">Middle Flex</span>
+                                            <span class="sc-val" id="valMiddleFlex">—</span>
+                                        </div>
+                                        <div class="sc-bar-bg">
+                                            <div class="sc-bar-fill" id="barMiddleFlex" style="width: 58%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="sensor-channel-row">
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row"><span class="sc-name">Ring Flex</span><span class="sc-val" id="valRingFlex">—</span></div>
+                                        <div class="sc-bar-bg"><div class="sc-bar-fill" id="barRingFlex" style="width:0%"></div></div>
+                                    </div>
+                                </div>
+
+                                <div class="sensor-channel-row">
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row"><span class="sc-name">Little finger Flex</span><span class="sc-val" id="valPinkyFlex">—</span></div>
+                                        <div class="sc-bar-bg"><div class="sc-bar-fill" id="barPinkyFlex" style="width:0%"></div></div>
+                                    </div>
+                                </div>
+
+                                <!-- Grip Pressure (FSR) -->
+                                <div class="sensor-channel-row">
+                                    <div class="sc-icon-wrap">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><path d="M12 6v6l4 2"></path></svg>
+                                    </div>
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row">
+                                            <span class="sc-name" data-i18n="grip_pressure_fsr">Grip Pressure (FSR)</span>
+                                            <span class="sc-val" id="valFsrGrip">12 kPa</span>
+                                        </div>
+                                        <div class="sc-bar-bg">
+                                            <div class="sc-bar-fill" id="barFsrGrip" style="width: 30%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- IMU Orientation -->
+                                <div class="sensor-channel-row">
+                                    <div class="sc-icon-wrap">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><circle cx="12" cy="12" r="10"></circle><polygon points="12 8 8 12 12 16 16 12 12 8"></polygon></svg>
+                                    </div>
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row">
+                                            <span class="sc-name" data-i18n="imu_orientation">IMU (Orientation)</span>
+                                        </div>
+                                        <div class="sc-subtext" id="valImuOrient">Roll: 2.1° Pitch: -1.3° Yaw: 0.8°</div>
+                                    </div>
+                                </div>
+
+                                <!-- EMG Arm -->
+                                <div class="sensor-channel-row">
+                                    <div class="sc-icon-wrap">
+                                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="18" height="18"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"></path></svg>
+                                    </div>
+                                    <div class="sc-info-wrap">
+                                        <div class="sc-label-row">
+                                            <span class="sc-name" data-i18n="emg_arm">EMG</span>
+                                            <span class="sc-val" id="valEmgArm">34 µV</span>
+                                        </div>
+                                        <div class="sc-bar-bg">
+                                            <div class="sc-bar-fill" id="barEmgArm" style="width: 34%;"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- RIGHT COLUMN (~38% width) -->
+                <div class="tel-col-right">
+                    
+
+                    
+
+                    <!-- Card 2: Movement Classification -->
+                    <section class="card card-movement-clf" id="movementClassificationCard" data-state="waiting" aria-labelledby="clfCardTitle">
+                        <div class="classification-header">
+                            <h3 id="clfCardTitle" data-i18n="movement_classification">Movement Classification</h3>
+                        </div>
+                        <div class="classification-result">
+                            <div class="classification-current"><span class="classification-label">Estimated movement</span><h4 id="clfClassName">—</h4></div>
+                            <div class="classification-action" id="clfActionPreview" hidden><img id="clfActionImage" alt="" aria-hidden="true" width="100" height="100"></div>
+                        </div>
+                    </section>
+
+                    <!-- Card 3: Live Signal Graphs (2x2 Grid) -->
+                    <div class="card card-live-graphs" id="liveSignalsSection">
+                        <div class="card-header-clean">
+                            <div class="ch-left">
+                                <svg class="ch-icon-teal" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                                <h4 data-i18n="live_signal_graphs">Live Signal Graphs</h4>
+                            </div>
+                            <select class="chart-time-dropdown" id="chartTimeRange">
+                                <option data-i18n="time_last_30s">Last 30 seconds</option>
+                                <option data-i18n="time_last_60s">Last 60 seconds</option>
+                            </select>
+                        </div>
+
+                        <!-- 2x2 Mini Chart Grid -->
+                        <div class="mini-charts-2x2-grid">
+                            <!-- Chart 1: Flex Sensors -->
+                            <div class="mini-chart-cell">
+                                <div class="mcc-header">
+                                    <span class="mcc-title" data-i18n="flex_sensors">Flex Sensors</span>
+                                    <div class="mcc-legend">
+                                        <span><span class="leg-dot dot-amber"></span><span data-i18n="thumb">Thumb</span></span>
+                                        <span><span class="leg-dot dot-teal"></span><span data-i18n="index">Index</span></span>
+                                        <span><span class="leg-dot dot-blue"></span><span data-i18n="middle">Middle</span></span>
+                                        <span><span class="leg-dot" style="background:#8b6ab0"></span>Ring</span>
+                                        <span><span class="leg-dot" style="background:#ce6c83"></span>Little</span>
+                                    </div>
+                                </div>
+                                <div class="mcc-canvas-wrap">
+                                    <canvas id="chartMiniFlex" height="65"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Chart 2: FSR (Grip Pressure) -->
+                            <div class="mini-chart-cell">
+                                <div class="mcc-header">
+                                    <span class="mcc-title" data-i18n="fsr_grip_pressure">FSR (Grip Pressure)</span>
+                                </div>
+                                <div class="mcc-canvas-wrap">
+                                    <canvas id="chartMiniFsr" height="65"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Chart 3: IMU (Gyroscope) -->
+                            <div class="mini-chart-cell">
+                                <div class="mcc-header">
+                                    <span class="mcc-title" data-i18n="imu_gyroscope">IMU (Gyroscope)</span>
+                                    <div class="mcc-legend">
+                                        <span><span class="leg-dot dot-cyan"></span>X</span>
+                                        <span><span class="leg-dot dot-amber"></span>Y</span>
+                                        <span><span class="leg-dot dot-blue"></span>Z</span>
+                                    </div>
+                                </div>
+                                <div class="mcc-canvas-wrap">
+                                    <canvas id="chartMiniImu" height="65"></canvas>
+                                </div>
+                            </div>
+
+                            <!-- Chart 4: EMG (Arm) -->
+                            <div class="mini-chart-cell">
+                                <div class="mcc-header">
+                                    <span class="mcc-title" data-i18n="emg_arm">EMG</span>
+                                </div>
+                                <div class="mcc-canvas-wrap">
+                                    <canvas id="chartMiniEmg" height="65"></canvas>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    
+
+                </div>
+
+            </div>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- TAB 2: GUIDED EXERCISES -->
+        <!-- ================================================================= -->
+        {% include 'guided.html' %}
+
+        <!-- ================================================================= -->
+        <!-- TAB 3: REHABILITATION GAMES (FRUIT CATCHER & BALLOON LIFT) -->
+        <!-- ================================================================= -->
+        <div id="tab-games" class="dashboard-tab-content" data-stage="library">
+            <header class="rehab-heading">
+                <div><span class="page-eyebrow">YOUR DAILY PRACTICE</span><h2>Let’s make movement a little more fun.</h2><p>Choose an activity. Get comfortable. Go at your own pace.</p></div>
+            </header>
+
+            <div class="rehab-section-label"><span>01</span><h3>Choose your activity</h3></div>
+            <div class="rehab-activities" aria-label="Rehabilitation activities">
+                <button type="button" class="game-select-pill rehab-activity active" data-game="fruit" aria-pressed="true" onclick="neuroGames.openInstructions('fruit')">
+                    <span class="rehab-card-copy"><span class="rehab-card-kicker">HAND OPEN &amp; CLOSE</span><strong>The Orchard</strong><span>Pick a fruit. Place it in the basket.</span><span class="rehab-card-tag">Gentle grasp &amp; release</span><span class="rehab-card-best" id="gameBest-fruit">Personal best · 0 pts</span></span>
+                    <svg class="rehab-card-art" viewBox="0 0 130 120" aria-hidden="true"><ellipse cx="66" cy="108" rx="49" ry="7" fill="#dae6cf"/><path d="M32 73h70l-9 32H41Z" fill="#c19a69"/><path d="M29 72h76M42 84h52M45 96h46M48 75l3 27M65 75v29M82 75l-3 27" fill="none" stroke="#967649" stroke-width="3"/><path d="M67 24c-29-16-43 21-21 39 7 6 14 3 20 3 8 2 17 1 23-11 15-24-1-43-22-31" fill="#c47456"/><path d="M66 26q-3-13 5-18" stroke="#6d7750" stroke-width="4" fill="none"/><ellipse cx="79" cy="15" rx="12" ry="5" fill="#7c9a62" transform="rotate(-25 79 15)"/></svg>
+                    <span class="rehab-card-selection">Selected</span>
+                </button>
+                <button type="button" class="game-select-pill rehab-activity" data-game="dino" aria-pressed="false" onclick="neuroGames.openInstructions('dino')">
+                    <span class="rehab-card-copy"><span class="rehab-card-kicker">HAND MOVEMENT · NEW</span><strong>Kangaroo Hop</strong><span>A familiar little runner. Your pace.</span><span class="rehab-card-tag">Bend one finger to jump</span><span class="rehab-card-best" id="gameBest-dino">Personal best · 0 pts</span></span>
+                    <svg class="rehab-card-art" viewBox="0 0 130 120" aria-hidden="true"><path d="M8 108h114" stroke="#d1d7cf" stroke-width="2"/><path d="M54 78Q32 100 9 103Q36 111 65 89" fill="#a67b50"/><ellipse cx="64" cy="73" rx="17" ry="25" transform="rotate(15 64 73)" fill="#bd9162"/><ellipse cx="70" cy="75" rx="8" ry="16" fill="#e8cda5"/><path d="M62 55l7-23q8-8 15 0l15 9q3 7-6 8H82L76 65" fill="#bd9162"/><ellipse cx="72" cy="23" rx="4" ry="15" transform="rotate(-12 72 23)" fill="#bd9162"/><ellipse cx="82" cy="22" rx="4" ry="14" transform="rotate(12 82 22)" fill="#bd9162"/><ellipse cx="73" cy="23" rx="1.5" ry="10" fill="#e8cda5"/><ellipse cx="82" cy="22" rx="1.5" ry="9" fill="#e8cda5"/><circle cx="87" cy="37" r="2" fill="#35382b"/><circle cx="98" cy="44" r="2.5" fill="#534331"/><path d="M77 60l9 12 7-2" fill="none" stroke="#a67b50" stroke-width="5" stroke-linecap="round"/><ellipse cx="57" cy="91" rx="15" ry="15" fill="#ad8053"/><path d="M60 92l12 13h19m-37-12 9 13h17" fill="none" stroke="#976b44" stroke-width="7" stroke-linecap="round"/></svg>
+                    <span class="rehab-card-selection">Selected</span>
+                </button>
+                <button type="button" class="game-select-pill rehab-activity" data-game="balloon" aria-pressed="false" onclick="neuroGames.openInstructions('balloon')">
+                    <span class="rehab-card-copy"><span class="rehab-card-kicker">WRIST MOVEMENT</span><strong>Sky Journey</strong><span>Guide a balloon through the sky.</span><span class="rehab-card-tag">Steady wrist control</span><span class="rehab-card-best" id="gameBest-balloon">Personal best · 0 pts</span></span>
+                    <svg class="rehab-card-art" viewBox="0 0 130 120" aria-hidden="true"><path d="M40 103h65" stroke="#c6dce1" stroke-width="2"/><ellipse cx="66" cy="43" rx="32" ry="37" fill="#719eb0"/><ellipse cx="66" cy="43" rx="19" ry="37" fill="#a5c6d1"/><ellipse cx="66" cy="43" rx="7" ry="37" fill="#dce9e7"/><path d="m48 73 8 22m28-22-8 22" stroke="#8f866b" stroke-width="2"/><rect x="54" y="92" width="25" height="17" rx="3" fill="#ad926a"/></svg>
+                    <span class="rehab-card-selection">Selected</span>
+                </button>
+            </div>
+
+            <div class="rehab-section-label rehab-play-label"><span>02</span><h3>Your practice space</h3><p>Take a break whenever you need.</p></div>
+            <div class="rehab-focus-bar" id="gamesFocusBar" hidden><button id="gameLibraryButton" onclick="neuroGames.returnToLibrary()">Choose another activity</button><span>A little space to focus on your movement.</span></div>
+            <dialog id="gameInstructionsDialog" class="game-instructions-dialog" aria-labelledby="gameActivityTitle" oncancel="event.preventDefault();neuroGames.returnToLibrary()">
+                <button type="button" class="game-popup-close" aria-label="Close instructions" onclick="neuroGames.returnToLibrary()"><span aria-hidden="true">×</span></button>
+            <div class="rehab-workspace" id="gameWorkspace">
+                <section class="rehab-player" aria-labelledby="gameActivityTitle">
+                    <div class="rehab-player-heading"><div><span class="rehab-small-label" id="gameSceneLabel">GRASP &amp; RELEASE</span><h3 id="gameActivityTitle">The Orchard</h3></div><button id="dinoChangeFinger" class="dino-change-finger" hidden onclick="neuroGames.showDinoFingerPicker()">Change finger</button><button type="button" class="game-settings-button" id="gameSettingsButton" aria-expanded="false" aria-controls="gameSettingsPanel" onclick="neuroGames.toggleSettings()">Settings</button><figure class="game-preview"><canvas id="gamePreviewCanvas" width="460" height="260" role="img" aria-label="Looping gameplay preview"></canvas><figcaption>Gameplay preview</figcaption></figure></div>
+                    <section id="dinoFingerSetup" class="dino-finger-setup" aria-labelledby="dinoFingerTitle" hidden>
+                        <div class="dino-finger-intro"><span class="rehab-small-label">BEFORE YOU BEGIN</span><h4 id="dinoFingerTitle">Which finger would you like to use?</h4><p>Tap a number on the right hand. Bend only that finger toward your palm to make your kangaroo jump.</p></div>
+                        <div class="dino-finger-layout">
+                            <svg class="dino-hand-diagram" viewBox="35 0 265 300" aria-label="Choose a finger on the right hand" role="group">
+                                <defs><pattern id="dinoFingerMesh" width="18" height="16" patternUnits="userSpaceOnUse"><path d="M0 0h18L9 16ZM0 0 9 16H-9ZM18 0l9 16H9" fill="none" stroke="#a9c5c9" stroke-width=".65"/></pattern></defs>
+                                <path d="M124 267 L121 245 C119 229 109 220 100 207 C89 190 85 174 81 157 L61 97 C56 84 59 74 68 71 C77 68 84 74 88 85 L106 139 C109 146 114 145 113 136 L98 57 C95 44 99 36 109 34 C119 32 126 39 128 51 L139 125 C140 131 146 130 146 123 L142 40 C141 27 147 20 157 20 C167 20 173 27 173 39 L176 120 C176 128 182 128 183 121 L189 50 C190 37 197 31 207 33 C216 35 220 43 218 55 L209 142 C208 152 212 157 218 150 L242 122 C250 112 259 111 266 117 C273 123 272 133 265 143 L236 186 C229 197 223 209 218 223 C214 236 214 251 213 267 Z" fill="#e3eef0" stroke="#91b4ba" stroke-width="2"/>
+                                <path d="M124 267 L121 245 C119 229 109 220 100 207 C89 190 85 174 81 157 L61 97 C56 84 59 74 68 71 C77 68 84 74 88 85 L106 139 C109 146 114 145 113 136 L98 57 C95 44 99 36 109 34 C119 32 126 39 128 51 L139 125 C140 131 146 130 146 123 L142 40 C141 27 147 20 157 20 C167 20 173 27 173 39 L176 120 C176 128 182 128 183 121 L189 50 C190 37 197 31 207 33 C216 35 220 43 218 55 L209 142 C208 152 212 157 218 150 L242 122 C250 112 259 111 266 117 C273 123 272 133 265 143 L236 186 C229 197 223 209 218 223 C214 236 214 251 213 267 Z" fill="url(#dinoFingerMesh)"/>
+                                <path d="M105 174 Q150 154 193 166 M122 207 Q154 195 181 199 M219 158 Q187 178 195 211 M127 244 Q166 238 211 244" stroke="#aac5c8" stroke-width="2" fill="none"/>
+                                <g class="dino-finger-target" data-finger="thumb" role="button" tabindex="0" aria-label="1. Thumb" aria-pressed="false" onclick="neuroGames.selectDinoFinger('thumb')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();neuroGames.selectDinoFinger('thumb')}"><circle class="dino-finger-hit" cx="257" cy="130" r="22"/><circle class="dino-finger-number" cx="257" cy="130" r="10"/><text x="257" y="130">1</text></g>
+                                <g class="dino-finger-target" data-finger="index" role="button" tabindex="0" aria-label="2. Index finger" aria-pressed="false" onclick="neuroGames.selectDinoFinger('index')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();neuroGames.selectDinoFinger('index')}"><circle class="dino-finger-hit" cx="203" cy="52" r="22"/><circle class="dino-finger-number" cx="203" cy="52" r="10"/><text x="203" y="52">2</text></g>
+                                <g class="dino-finger-target" data-finger="middle" role="button" tabindex="0" aria-label="3. Middle finger" aria-pressed="false" onclick="neuroGames.selectDinoFinger('middle')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();neuroGames.selectDinoFinger('middle')}"><circle class="dino-finger-hit" cx="157" cy="39" r="22"/><circle class="dino-finger-number" cx="157" cy="39" r="10"/><text x="157" y="39">3</text></g>
+                                <g class="dino-finger-target" data-finger="ring" role="button" tabindex="0" aria-label="4. Ring finger" aria-pressed="false" onclick="neuroGames.selectDinoFinger('ring')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();neuroGames.selectDinoFinger('ring')}"><circle class="dino-finger-hit" cx="113" cy="53" r="22"/><circle class="dino-finger-number" cx="113" cy="53" r="10"/><text x="113" y="53">4</text></g>
+                                <g class="dino-finger-target" data-finger="pinky" role="button" tabindex="0" aria-label="5. Little finger" aria-pressed="false" onclick="neuroGames.selectDinoFinger('pinky')" onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();neuroGames.selectDinoFinger('pinky')}"><circle class="dino-finger-hit" cx="74" cy="90" r="22"/><circle class="dino-finger-number" cx="74" cy="90" r="10"/><text x="74" y="90">5</text></g>
+                                <text class="dino-hand-caption" x="168" y="293">RIGHT HAND</text>
+                            </svg>
+                            <div class="dino-finger-choice"><strong id="dinoSelectedFinger" aria-live="polite">Choose a finger to begin</strong><p id="dinoFingerHint">1 Thumb · 2 Index · 3 Middle · 4 Ring · 5 Little finger</p><span class="dino-finger-note">Straighten the finger to get ready for the next jump. The other fingers do not control the game.</span></div>
+                        </div>
+                    </section>
+                    <div class="rehab-controls">
+                        <div class="rehab-main-actions"><div id="gameManualControls" hidden><div id="manualFruitControls"><button class="btn btn-outline" onclick="neuroGames.manualAction('close')">Close hand</button><button class="btn btn-outline" onclick="neuroGames.manualAction('open')">Open hand</button></div><div id="manualBalloonControls" hidden><button class="btn btn-outline" onclick="neuroGames.manualAction('up')">Rise ↑</button><button class="btn btn-outline" onclick="neuroGames.manualAction('down')">Descend ↓</button></div><button id="manualDinoControl" class="btn btn-primary" onclick="neuroGames.manualAction('jump')" hidden>Jump <span aria-hidden="true">↑</span></button></div><button id="btnGameStart" class="btn btn-primary" onclick="startTherapyGame()">Start activity</button><button id="btnGamePause" class="btn btn-primary" onclick="pauseTherapyGame()" style="display:none">Pause</button><button id="btnGameStop" class="btn btn-outline" onclick="stopTherapyGame()" style="display:none">Finish activity</button></div>
+                        <button type="button" class="game-finger-back" onclick="neuroGames.showDinoInstructions()">Back to instructions</button><button type="button" class="game-setup-settings" onclick="neuroGames.toggleSettings()">Adjust sensitivity</button><span id="gameStatusPill" class="game-status-pill ready">Ready when you are</span>
+                    </div>
+                    <div class="rehab-prompt"><span class="rehab-prompt-dot" aria-hidden="true"></span><span id="gameMovementPrompt" role="status" aria-live="polite">Start when you feel ready.</span></div>
+                    <canvas id="gameCanvas" width="920" height="520" tabindex="0" role="img" aria-label="Sensor-controlled rehabilitation activity"></canvas>
+                    <div id="gameCompletion" class="rehab-completion" hidden><strong>Practice complete. Well done.</strong><span id="gameCompletionText"></span></div>
+                    <div class="rehab-metrics" aria-label="Current activity progress"><div><span>Movements completed</span><strong id="gameRepsVal">0</strong></div><div><span>Practice time</span><strong id="gameTimeVal">00:00</strong></div><div><span>Points earned</span><strong id="gameScoreVal">0</strong></div><div class="rehab-best-metric"><span>Personal best</span><strong id="gameBestScoreVal">0</strong></div></div>
+                    <div class="rehab-score-progress"><span id="gameScoreProgress" role="status" aria-live="polite">Every movement is a start. Set your first personal best.</span><small id="gameScoreStorage">Best scores saved in this browser.</small></div>
+                </section>
+
+                <aside id="gameSettingsPanel" class="rehab-companion" aria-label="Activity instructions and controls"><button type="button" class="game-settings-close btn btn-outline" onclick="neuroGames.toggleSettings(false)">Done</button>
+                    <section class="rehab-help"><span class="rehab-small-label">A LITTLE GUIDANCE</span><h3>Here’s how to play</h3>
+                        <div id="fruitInstructionsCard"><ol><li><span>1</span><div><strong>Gently close your hand</strong><p>Pick the fruit when it reaches the circle.</p></div></li><li><span>2</span><div><strong>Open your hand</strong><p>Release the fruit into the basket.</p></div></li></ol><p class="rehab-reassurance">The fruit waits for you. There’s no time limit.</p></div>
+                        <div id="balloonInstructionsCard" style="display:none"><ol><li><span>1</span><div><strong>Tilt your wrist up</strong><p>Your balloon will gently rise.</p></div></li><li><span>2</span><div><strong>Tilt down to descend</strong><p>Line up with the next ring and hold briefly to pass through.</p></div></li></ol><p class="rehab-reassurance">Each ring waits until you reach its height.</p></div>
+                        <div id="dinoInstructionsCard" style="display:none"><ol><li><span>1</span><div><strong id="dinoActionHelp">Choose a finger, then bend it</strong><p>Help your kangaroo jump over a cactus.</p></div></li><li><span>2</span><div><strong>Relax, then try again</strong><p>Straighten your chosen finger before the next jump.</p></div></li></ol><p class="rehab-reassurance">In gentle mode, the cactus waits for your jump.</p></div>
+                    </section>
+                    <section class="rehab-feedback"><span class="rehab-small-label">YOUR MOVEMENT</span>
+                        <div id="fruitGripMeterCard"><div class="rehab-reading"><span id="gameMotionLabel">Hand closed</span><strong id="fruitGripVal">0%</strong></div><div class="progress-bar-bg bf-bar"><div id="fruitGripBar" class="progress-bar-fill" style="width:0%"></div><div class="threshold-marker thresh-release"></div><div class="threshold-marker thresh-catch"></div></div><p id="fruitGripZone">Hand open · release</p><div class="rehab-contact">Grip pressure <span id="gameFsrVal">0%</span></div></div>
+                        <div id="balloonWristMeterCard" style="display:none"><div class="rehab-reading"><span>Wrist tilt</span><strong id="balloonWristVal">0°</strong></div><div class="progress-bar-bg bf-bar"><div id="balloonWristBar" class="progress-bar-fill" style="width:50%"></div><div class="threshold-marker thresh-center"></div></div><p id="balloonWristZone">Resting position</p></div>
+                    </section>
+
+                    <details class="rehab-adjustments" open><summary>Make it comfortable <span aria-hidden="true">+</span></summary><div class="rehab-adjustment-fields">
+                        <label id="gameHandSetting">Hand movement needed <span class="rehab-range"><input id="gameCatchThreshold" type="range" min="20" max="80" step="5" value="50" oninput="neuroGames.setCatchThreshold(this.value)"><output id="gameCatchThresholdVal">50%</output></span></label>
+                        <label id="gameWristSetting">Wrist response <select id="gameWristSensitivity" onchange="neuroGames.setWristSensitivity(this.value)"><option value="1.8">Small movements</option><option value="1" selected>Standard</option><option value="0.65">Gentle response</option></select></label>
+                        <label id="dinoBendSetting" hidden>Finger bend needed <span class="rehab-range"><input id="dinoBendThreshold" type="range" min="5" max="50" step="5" value="15" oninput="neuroGames.setDinoBendThreshold(this.value)"><output id="dinoBendThresholdVal">15%</output></span></label>
+                        <label id="dinoPaceSetting" hidden>Running pace <select id="dinoPace" onchange="neuroGames.setDinoPace(this.value)"><option value="0.75">Slow</option><option value="1" selected>Steady</option><option value="1.2">Lively</option></select></label>
+                        <label id="dinoGentleSetting" class="rehab-checkbox" hidden><input id="dinoGentle" type="checkbox" checked onchange="neuroGames.dinoGentle=this.checked"> Let obstacles wait for me</label>
+                        <label class="rehab-checkbox"><input id="gameSound" type="checkbox" onchange="neuroGames.soundEnabled=this.checked"> Gentle sound feedback</label>
+                    </div></details>
+                </aside>
+            </div>
+            </dialog>
+            <section id="gameResults" class="game-results" hidden aria-labelledby="gameResultsTitle" tabindex="-1">
+                <span class="rehab-small-label">SESSION RESULTS</span><h2 id="gameResultsTitle">Your practice is complete</h2><p id="gameResultsName"></p>
+                <div class="game-result-stats"><div><span>Your score</span><strong id="gameResultScore">0</strong></div><div><span>Highest score</span><strong id="gameResultBest">0</strong></div><div><span>Movements completed</span><strong id="gameResultReps">0</strong></div><div><span>Practice time</span><strong id="gameResultTime">00:00</strong></div></div>
+                <p id="gameResultMessage"></p><div class="game-result-actions"><button class="btn btn-primary" onclick="neuroGames.openInstructions(neuroGames.activeGame)">Play again</button><button class="btn btn-outline" onclick="neuroGames.returnToLibrary()">Exit to games</button></div>
+            </section>
+            <p class="rehab-bottom-note">A comfortable movement is enough. You can pause or finish at any time.</p>
+        </div>
+
+        <!-- ================================================================= -->
+        <!-- TAB 4: HAND ANATOMY GLOSSARY -->
+        <!-- ================================================================= -->
+        {% include 'prediction.html' %}
+        {% include 'anatomy.html' %}
+        </div>
+
+            </main>
+        </div>
+
+    </div>
+
+    <!-- Modal: Session History & Reports -->
+    <div id="modalHistory" class="modal-backdrop">
+        <div class="modal-window history-window" role="dialog" aria-modal="true" aria-labelledby="sessionHistoryTitle" tabindex="-1">
+            <div class="modal-header history-header">
+                <div><span class="history-eyebrow">YOUR RECORDS</span><h2 id="sessionHistoryTitle">Session history</h2><p>Review saved sessions and download your reports.</p></div>
+                <button type="button" class="modal-close" aria-label="Close session history" onclick="closeModal('modalHistory')">&times;</button>
+            </div>
+            <div class="history-toolbar"><label class="history-search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m16 16 4 4"/></svg><input type="search" id="historySearch" placeholder="Search exercises" aria-label="Search exercises"></label><span id="historySessionCount" role="status"></span></div>
+            <div class="modal-body history-body">
+                <div class="history-table-container">
+                    <table class="data-table" id="historyTable">
+                        <colgroup><col style="width:25%"><col style="width:17%"><col style="width:14%"><col style="width:15%"><col style="width:14%"><col style="width:15%"></colgroup>
+                        <thead>
+                            <tr>
+                                <th scope="col">Exercise &amp; session</th>
+                                <th scope="col">Date &amp; time</th>
+                                <th scope="col">Repetitions</th>
+                                <th scope="col">Range of motion</th>
+                                <th scope="col">Consistency</th>
+                                <th scope="col">Reports</th>
+                            </tr>
+                        </thead>
+                        <tbody id="historyTableBody">
+                            <tr><td colspan="6" class="history-empty">Loading session history...</td></tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer history-footer">
+                <span id="historyVisibleCount" role="status"></span>
+                <div class="history-pagination"><button type="button" id="historyPrevious">Previous</button><span id="historyPageLabel"></span><button type="button" id="historyNext">Next</button></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Terms of Clinical Use -->
+    <div id="modalTerms" class="modal-backdrop">
+        <div class="modal-window modal-wide">
+            <div class="modal-header">
+                <h2>
+                    <span data-i18n="terms_title">Terms of Clinical & Investigational Use</span>
+                </h2>
+                <button class="modal-close" onclick="closeModal('modalTerms')">&times;</button>
+            </div>
+            <div class="modal-body terms-text-body">
+                <h3>1. Investigational Device Software Exemption</h3>
+                <p>The NeuroGlove Multimodal Edge-AI Rehabilitation System is provided for clinical investigation, neuromuscular rehabilitation research, and qualified physiological monitoring under institutional clinical protocols compliant with IEC 62304 / ISO 13485 guidelines.</p>
+                
+                <h3>2. Professional Clinical Oversight</h3>
+                <p>All motor training sessions, range-of-motion assessments, and biofeedback routines must be conducted under the direction of a certified physical therapist, occupational therapist, or licensed rehabilitation clinician. Software metrics represent assistive biomechanical estimations and do not substitute for formal diagnostic evaluations.</p>
+
+                <h3>3. Hardware Operating Tolerances & Safety Cutoffs</h3>
+                <p>Ensure all 5 flex sensor channels, MPU-6050 IMU, sEMG differential leads, and palmar FSR sensors undergo zero-point calibration before patient engagement. In the event of skin irritation, sensory fatigue, or hardware telemetry desynchronization, immediately terminate the active session and power down the glove controller.</p>
+
+                <h3>4. Calibration & Signal Integrity</h3>
+                <p>Analog-to-digital conversions (ADC) and surface electromyography envelopes are calibrated per individual subject anatomy. Data collected with uncalibrated sensors must not be utilized for longitudinal clinical progress scoring.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal('modalTerms')" data-i18n="btn_acknowledge_close">Acknowledge & Close</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal: Patient Data Privacy & HIPAA Policy -->
+    <div id="modalPrivacy" class="modal-backdrop">
+        <div class="modal-window modal-wide">
+            <div class="modal-header">
+                <h2>
+                    <span data-i18n="privacy_title">Patient Data Privacy & HIPAA Security Policy</span>
+                </h2>
+                <button class="modal-close" onclick="closeModal('modalPrivacy')">&times;</button>
+            </div>
+            <div class="modal-body terms-text-body">
+                <h3>1. Protected Health Information (PHI) De-Identification</h3>
+                <p>In accordance with 45 CFR § 164.514 (HIPAA Privacy Rule), all kinematic session logs, flex angles, EMG root-mean-square values, and motor attempt classifications are recorded against pseudo-anonymized Session IDs. No direct patient identifiers (name, MRN, date of birth) are transmitted over unencrypted telemetry channels.</p>
+
+                <h3>2. Local Edge Architecture & Data Locality</h3>
+                <p>All machine learning inference (Random Forest classifier and EMG envelope feature extraction) operates on-premise at the edge controller (Raspberry Pi / local workstation). No biomechanical raw time-series feeds are uploaded to third-party public cloud endpoints.</p>
+
+                <h3>3. Secure Local Transport & Logging</h3>
+                <p>Telemetry between the ESP32 wearable acquisition node and the workstation broker utilizes TLS-authenticated MQTT protocols. Local SQLite history records reside solely on the physical workstation filesystem under authenticated clinical user accounts.</p>
+
+                <h3>4. Patient Rights of Inspection & Erasure</h3>
+                <p>Under clinical research standards, patients or their legal guardians may request an export or secure erasure of their rehabilitation trajectory logs at any time through the workstation administration console.</p>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" onclick="closeModal('modalPrivacy')" data-i18n="btn_acknowledge_close">Acknowledge & Close</button>
+            </div>
+        </div>
+    </div>
+
+    {% include 'personalisation.html' %}
+    <!-- JavaScript modules -->
+    <!-- Three.js 3D WebGL Library (Offline local bundle with CDN fallback) -->
+    <script src="/static/js/three.min.js"></script>
+    <script>
+        if (typeof THREE === 'undefined') {
+            document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"><\/script>');
+        }
+    </script>
+    <!-- Three.js GLTFLoader (Offline local bundle with CDN fallback) -->
+    <script src="/static/js/GLTFLoader.js"></script>
+    <script>
+        if (typeof THREE.GLTFLoader === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js"><\/script>');
+        }
+    </script>
+    <script src="/static/js/OrbitControls.js"></script>
+    <script>
+        if (typeof THREE.OrbitControls === 'undefined') {
+            document.write('<script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"><\/script>');
+        }
+    </script>
+    <script src="/static/js/hand_anatomy.js?v=6.4"></script>
+    <script src="/static/js/mirror_hand.js?v=7.7"></script>
+    <script src="/static/js/games.js?v=10.1"></script>
+    <script src="/static/js/glossary.js?v=5.2"></script>
+    <script>window.ACTIVE_DATA_SOURCE = "{{ data_source }}";</script>
+    <script src="/static/js/dashboard.js?v=6.5"></script>
+    <script src="/static/js/history.js?v=1.1"></script>
+    <script src="/static/js/popup_dismiss.js?v=1.0"></script>
+    <script src="/static/js/exercise_previews.js?v=3.1"></script>
+    <script src="/static/js/personalisation.js?v=1.7"></script>
+    <script src="/static/js/guided_sessions.js?v=5.1"></script>
+<script src="/static/js/prediction.js?v=2.6"></script>
+</body>
+</html>
+
