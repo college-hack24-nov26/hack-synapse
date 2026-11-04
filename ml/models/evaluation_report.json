@@ -1,0 +1,122 @@
+{
+  "accuracy": 1.0,
+  "macro_f1": 1.0,
+  "classes": [
+    "REST",
+    "OPEN",
+    "CLOSE",
+    "GRASP"
+  ],
+  "confusion_matrix": [
+    [
+      100,
+      0,
+      0,
+      0
+    ],
+    [
+      0,
+      100,
+      0,
+      0
+    ],
+    [
+      0,
+      0,
+      100,
+      0
+    ],
+    [
+      0,
+      0,
+      0,
+      100
+    ]
+  ],
+  "classification_report": {
+    "REST": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 100.0
+    },
+    "OPEN": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 100.0
+    },
+    "CLOSE": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 100.0
+    },
+    "GRASP": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 100.0
+    },
+    "accuracy": 1.0,
+    "macro avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 400.0
+    },
+    "weighted avg": {
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1-score": 1.0,
+      "support": 400.0
+    }
+  },
+  "sensor_ablation": {
+    "flex_only_accuracy": 1.0,
+    "flex_imu_accuracy": 1.0,
+    "multimodal_accuracy": 1.0
+  },
+  "top_features": [
+    {
+      "feature": "emg_env_mean",
+      "importance": 0.1125
+    },
+    {
+      "feature": "flex_index_mean",
+      "importance": 0.0867
+    },
+    {
+      "feature": "flex_ring_mean",
+      "importance": 0.0864
+    },
+    {
+      "feature": "emg_rms",
+      "importance": 0.0832
+    },
+    {
+      "feature": "flex_middle_mean",
+      "importance": 0.082
+    },
+    {
+      "feature": "flex_thumb_mean",
+      "importance": 0.0743
+    },
+    {
+      "feature": "hand_bend_mean",
+      "importance": 0.0703
+    },
+    {
+      "feature": "emg_env_max",
+      "importance": 0.062
+    },
+    {
+      "feature": "flex_pinky_mean",
+      "importance": 0.0566
+    },
+    {
+      "feature": "imu_acc_mag_mean",
+      "importance": 0.0559
+    }
+  ]
+}

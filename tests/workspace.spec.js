@@ -1,0 +1,33 @@
+import { test, expect } from '@playwright/test';
+
+test('React dashboard starts, navigates and opens exercise and game dialogs', async ({ page }) => {
+  const errors = [];
+  page.on('pageerror', error => errors.push(error.message));
+  await page.goto('/');
+  await expect(page.locator('#tabBtn-exercises')).toBeVisible({ timeout: 60000 });
+  await expect(page.locator('.react-startup')).toHaveCount(0);
+  await expect(page.locator('body')).toHaveAttribute('data-react-ready', 'true', { timeout: 60000 });
+  await page.locator('#tabBtn-telemetry').click();
+  await expect(page.locator('#valThumbFlex')).toHaveText(/\d+%/, { timeout: 15000 });
+  await page.locator('#tabBtn-exercises').click();
+  await expect(page.locator('#tab-exercises')).toHaveClass(/active/);
+  await expect(page.locator('.gp-card-open')).toHaveCount(6, { timeout: 30000 });
+  await page.locator('.gp-card-open').first().click();
+  await expect(page.locator('#gpInstructions')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.locator('#tabBtn-games').click();
+  await page.locator('[data-game="fruit"]').click();
+  await expect(page.locator('#gameInstructionsDialog')).toBeVisible();
+  await page.keyboard.press('Escape');
+  await page.locator('#tabBtn-prediction').click();
+  await expect(page.locator('#tab-prediction')).toHaveClass(/active/);
+  await page.locator('#tabBtn-settings').click();
+  await expect(page.locator('#tab-settings')).toHaveClass(/active/);
+  await page.locator('[aria-controls="glovePersonalisationDialog"]').click();
+  await expect(page.locator('#glovePersonalisationDialog')).toBeVisible();
+  await expect(page.locator('#glovePersonalisationDialog [data-step]')).toHaveCount(6);
+  await expect(page.locator('#gloveSetupLiveReadings')).toContainText('Index:', { timeout: 10000 });
+  await page.locator('#glovePersonalisationDialog .glove-setup-close').click();
+  await page.screenshot({ path: 'test-results/settings.png' });
+  expect(errors).toEqual([]);
+});

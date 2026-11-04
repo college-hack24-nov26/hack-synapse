@@ -1,0 +1,19 @@
+[Unit]
+Description=NeuroGlove React dashboard and sensor pipeline
+Wants=network-online.target mosquitto.service
+After=network-online.target mosquitto.service
+
+[Service]
+Type=simple
+User=pi
+WorkingDirectory=/home/pi/NeuroGlove-React
+EnvironmentFile=/home/pi/.config/neuroglove/react.env
+Environment=PYTHONUNBUFFERED=1
+Environment=MPLBACKEND=Agg
+ExecStart=/home/pi/NeuroGlove-React/.venv/bin/python server.py --source mqtt --host 0.0.0.0 --port 5001
+Restart=always
+RestartSec=5
+TimeoutStopSec=20
+
+[Install]
+WantedBy=multi-user.target

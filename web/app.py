@@ -63,7 +63,13 @@ def index():
 @app.route("/api/status", methods=["GET"])
 def get_status():
     """Returns the latest processed snapshot of the pipeline."""
-    return jsonify(pipeline.latest_state)
+    return jsonify({
+        **pipeline.latest_state,
+        "mqtt_connected": pipeline.mqtt_receiver.is_connected,
+        "serial_connected": pipeline.serial_receiver.is_connected,
+        "serial": pipeline.serial_receiver.status(),
+        "guided": pipeline.guided.snapshot()
+    })
 
 @app.route("/api/stream")
 def sse_stream():

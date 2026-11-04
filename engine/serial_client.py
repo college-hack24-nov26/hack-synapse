@@ -27,6 +27,7 @@ class SerialReceiver:
     def __init__(self,data_queue,port='COM11',baud=115200):
         self.queue=data_queue;self.port=port;self.baud=baud;self.is_connected=False;self.error=None
         self.last_received_at=None;self._stop=threading.Event();self.thread=None;self.connection=None;self.seq=0
+        self.last_device_message=None;self.device_boot_count=0
     def start(self):
         if self.thread and self.thread.is_alive():return
         self._stop.clear();self.thread=threading.Thread(target=self._run,daemon=True,name='ESP32-USB');self.thread.start()
@@ -41,7 +42,12 @@ class SerialReceiver:
         while not self._stop.is_set():
             target_port = self.port
             try:
-                conn = serial.Serial(port=None, baudrate=self.baud, timeout=.25)
+                conn = serial.Serial(port=None, baudrate=self.baud, timeout=.05,
+                                     rtscts=False, dsrdtr=False, xonxoff=False)
+                # Set control lines BEFORE opening. Opening with pySerial's
+                # active defaults and changing them afterwards can reset ESP32.
+                conn.dtr = False
+                conn.rts = False
                 try:
                     conn.port = target_port
                     conn.open()
@@ -65,8 +71,6 @@ class SerialReceiver:
                         target_port = detected
                     else:
                         raise e
-                conn.dtr = False
-                conn.rts = False
                 conn.reset_input_buffer()
                 self.connection = conn
                 self.is_connected = True
@@ -83,6 +87,11 @@ class SerialReceiver:
                     try:frame=parse_sensor_line(line,self.seq)
                     except UnicodeError:continue
                     if frame is None:
+                        message=line.decode('ascii',errors='replace').strip()
+                        self.last_device_message=message
+                        if message.startswith(('rst:', 'ets ', 'ESP-ROM:')):
+                            self.device_boot_count+=1
+                            log.warning('ESP32 USB boot message: %s',message)
                         if line.startswith(b'ERROR:'):self.error=line.decode('ascii',errors='replace').strip()
                         continue
                     self.seq+=1;self.last_received_at=frame['received_at'];self.error=None
@@ -105,8 +114,12 @@ class SerialReceiver:
                 if self.connection:
                     try:self.connection.close()
                     except Exception:pass
+                elif 'conn' in locals():
+                    try:conn.close()
+                    except Exception:pass
                 self.connection=None
             self._stop.wait(1)
     def status(self):
         return {'port':self.port,'baud':self.baud,'connected':self.is_connected,
-                'received_at':self.last_received_at,'error':self.error}
+                'received_at':self.last_received_at,'error':self.error,
+                'last_device_message':self.last_device_message,'device_boot_count':self.device_boot_count}
