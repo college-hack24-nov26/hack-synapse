@@ -80,6 +80,9 @@ Individual-finger practice allows natural movement in neighbouring fingers. Grip
 
 ## The hardware
 
+![Uploading image.png…]()
+
+
 | Component | Purpose | ESP32 connection |
 |---|---|---|
 | Flex sensor — thumb | Thumb bending | GPIO36 / VP |
